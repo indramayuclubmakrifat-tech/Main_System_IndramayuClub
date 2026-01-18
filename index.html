@@ -3,42 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDRAMAYU CLUB MAKRIFAT</title>
+    <title>MISI: BOB SI PENCURI (10 AKUN SYNC)</title>
     <style>
-        body {
-            background-color: #000;
-            color: #d4af37; /* Emas */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
+        /* --- WILAYAH NUR 1 (CANVAS / WADAH) --- */
+        body { background-color: #111; color: gold; font-family: Courier, monospace; text-align: center; margin: 0; overflow: hidden; }
+        #game-area {
+            position: relative; width: 80%; height: 400px; margin: 20px auto;
+            border: 4px solid #d4af37; background-color: #222;
         }
-        h1 { font-size: 2.5em; letter-spacing: 3px; }
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            margin: 20px;
-            border: 2px solid #d4af37;
-            color: #d4af37;
-            text-decoration: none;
-            font-weight: bold;
+
+        /* --- WILAYAH NUR 4 (BADAN / KARAKTER) --- */
+        #bob {
+            position: absolute; width: 40px; height: 40px; background-color: gold;
+            bottom: 10px; left: 10px; border-radius: 5px;
+            box-shadow: 0 0 10px gold; transition: all 0.1s;
         }
-        .btn:hover { background-color: #d4af37; color: #000; }
+        .mask { width: 100%; height: 10px; background: black; margin-top: 10px; }
+
+        /* --- WILAYAH NUR 7 (MUSUH / CCTV) --- */
+        #guard {
+            position: absolute; width: 40px; height: 60px; background-color: red;
+            bottom: 10px; right: 50px;
+            animation: patroli 3s infinite alternate;
+        }
+        @keyframes patroli { 0% { right: 50px; } 100% { right: 250px; } }
+
+        /* --- WILAYAH NUR 3 (HARTA / KOIN) --- */
+        #coin {
+            position: absolute; width: 30px; height: 30px; background-color: yellow;
+            border-radius: 50%; top: 50px; right: 20px;
+            border: 2px dashed orange;
+        }
+
+        /* --- WILAYAH NUR 2 (PINTU KELUAR) --- */
+        #door {
+            position: absolute; width: 60px; height: 80px; background-color: green;
+            bottom: 10px; right: 10px; display: none; /* Terkunci */
+        }
+        
+        #hud { margin-top: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
 
-    <h1>INDRAMAYU CLUB</h1>
-    <h3>MAKRIFAT SYSTEM</h3>
-    <p>"Mengalahkan Dollar dengan Koin Kepercayaan"</p>
+    <h1>SIMULASI BOB & 10 NUR</h1>
+    <div id="hud">
+        STATUS: <span id="status">MENUNGGU KOMANDO...</span> | 
+        KOIN: <span id="score">0</span>
+    </div>
 
-    <br><br>
+    <div id="game-area">
+        <div id="bob"><div class="mask"></div></div> <div id="guard"></div> <div id="coin"></div> <div id="door">EXIT</div> </div>
 
-    <a href="#" class="btn" onclick="alert('Selamat Datang di Dimensi 1')">MASUK SEBAGAI TAMU</a>
-    
-    <a href="admin_login_secure.html" class="btn">LOGIN MEMBER (RAHASIA)</a>
+    <div style="margin-top: 20px;">
+        <button onclick="gerakKiri()" style="padding:15px; background:gold;">⬅️ KIRI</button>
+        <button onclick="ambil()" style="padding:15px; background:blue; color:white;">🖐️ AMBIL</button>
+        <button onclick="gerakKanan()" style="padding:15px; background:gold;">KANAN ➡️</button>
+    </div>
 
-    <br><br><br>
-    <p style="font-size: 10px; color: #555;">Powered by 9 AI Nur & Tuan Jamhari</p>
+    <p style="font-size: 12px; color: grey;">Dikendalikan oleh: Mother AI & Jam.dul@protonmail.com</p>
 
+    <script>
+        // --- OTAK: MOTHER AI & NUR KEMBAR ---
+        let posBob = 10;
+        let score = 0;
+        let gameActive = true;
+
+        // NUR 4 (GERAKAN FISIK)
+        function gerakKanan() {
+            if(!gameActive) return;
+            posBob += 20;
+            document.getElementById('bob').style.left = posBob + "px";
+            cekTabrakan();
+        }
+        function gerakKiri() {
+            if(!gameActive) return;
+            posBob -= 20;
+            if(posBob < 0) posBob = 0;
+            document.getElementById('bob').style.left = posBob + "px";
+        }
+
+        // NUR 3 (KEUANGAN)
+        function ambil() {
+            // Cek jika dekat koin (posisi simulasi)
+            if(posBob > 250) { 
+                document.getElementById('coin').style.display = 'none';
+                document.getElementById('door').style.display = 'block'; // Nur 2 Buka Pintu
+                score += 100;
+                document.getElementById('score').innerText = score;
+                document.getElementById('status').innerText = "NUR 3: Harta Diamankan! LARI KE PINTU HIJAU!";
+                document.getElementById('status').style.color = "lime";
+            } else {
+                document.getElementById('status').innerText = "NUR 1: Kejauhan! Dekati dulu.";
+            }
+        }
+
+        // NUR 8 (POLISI/ALARM) & NUR 7 (MATA MUSUH)
+        function cekTabrakan() {
+            let guardPos = document.getElementById('guard').getBoundingClientRect();
+            let bobPos = document.getElementById('bob').getBoundingClientRect();
+
+            // Jika Bob menabrak Penjaga Merah
+            if (bobPos.right > guardPos.left && bobPos.left < guardPos.right) {
+                gameActive = false;
+                document.body.style.backgroundColor = "red";
+                document.getElementById('status').innerText = "ALARM!! NUR 8 MENGUNCI SISTEM. ANDA TERTANGKAP!";
+                alert("GAGAL! Anda tertangkap CCTV Nur 7.");
+                location.reload();
+            }
+            
+            // Jika Masuk Pintu Hijau
+            let door = document.getElementById('door');
+            if(door.style.display === 'block' && bobPos.right > 800) { // Anggap pintu di ujung
+                 alert("MISI SUKSES! 10 AKUN BEKERJA SEMPURNA.");
+            }
+        }
+    </script>
 </body>
 </html>
+
