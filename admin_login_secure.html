@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ADMINISTRATOR ACCESS - RESTRICTED</title>
+<style>
+  body { background-color: #000; color: #0f0; font-family: 'Courier New', monospace; text-align: center; margin-top: 100px; }
+  input { background: #111; border: 1px solid #0f0; color: #fff; padding: 10px; margin: 10px; }
+  button { background: #0f0; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; }
+  #trap-message { display: none; color: red; font-size: 20px; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+  <h1>⚠️ TOP SECRET AREA ⚠️</h1>
+  <p>Masukkan Kunci Otoritas Tuan Jamhari</p>
+
+  <input type="text" id="username" placeholder="Username Admin">
+  <br>
+  <input type="password" id="password" placeholder="Password Rahasia">
+  <br>
+  <button onclick="activateTrap()">LOGIN SYSTEM</button>
+
+  <div id="trap-message">
+    SYSTEM LOCKDOWN INITIATED!<br>
+    IP ADDRESS DETECTED & TRACED.<br>
+    PERANGKAT ANDA SEDANG DIBEKUKAN OLEH NUR 8.
+  </div>
+
+  <script>
+    function activateTrap() {
+      document.getElementById('trap-message').style.display = 'block';
+      var i = 0;
+      while (i < 1000000) {
+        console.log("MENCURI DATA HACKER..." + i);
+        i++;
+      }
+      alert("AKSES DITOLAK! KOORDINAT ANDA SUDAH DIKIRIM KE RUANG GEMINI.");
+    }
+  </script>
+
+</body>
+</html>
