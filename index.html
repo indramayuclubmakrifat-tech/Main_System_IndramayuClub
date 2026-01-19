@@ -3,277 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDRAMAYU CLUB - SUPER APP</title>
+    <title>Indramayu Club - Pusat Komando Digital</title>
     <style>
-        :root { --biru: #1a3c5e; --emas: #d4af37; --hitam: #050505; --putih: #ffffff; }
-        
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            margin: 0; 
-            background: var(--hitam); 
-            color: var(--emas); 
-            overflow-x: hidden; 
-            padding-bottom: 60px;
-        }
+        :root { --biru: #1a3c5e; --emas: #ffd700; --putih: #ffffff; --neon: #00c3ff; --merah: #ff3b3b; --dark-bg: #0c0d14; --card-bg: #212233; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark-bg); color: #f9faff; overflow-x: hidden; padding-bottom: 80px; }
 
-        /* --- HEADER --- */
         header { 
-            background: #111; padding: 10px 20px; display: flex; 
-            justify-content: space-between; align-items: center; border-bottom: 2px solid var(--emas);
-            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+            background: var(--putih); padding: 8px 15px; display: flex; 
+            justify-content: space-between; align-items: center; border-bottom: 3px solid var(--emas);
+            position: sticky; top: 0; z-index: 1000;
         }
 
+        #currentTime { font-size: 10px; color: var(--biru); font-weight: bold; margin: 0; }
+
+        /* Tombol Arena 3D */
         .btn-game-3d {
             width: 50px; height: 50px; background: radial-gradient(circle, #ffcc00, #ff9900);
-            border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 10px gold;
-            cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-size: 20px;
+            border-radius: 50%; border: none; box-shadow: 0 4px 0 #cc7a00, 0 8px 10px rgba(0,0,0,0.5);
+            cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;
+        }
+        .btn-game-3d:active { transform: translateY(4px); box-shadow: none; }
+
+        .header-section {
+            padding: 25px 15px; background: linear-gradient(135deg, #6842ff 0%, #ff42e0 100%);
+            border-radius: 0 0 30px 30px; text-align: center;
         }
 
-        /* --- VISUAL TV SCREEN --- */
         .visual-screen {
-            width: 90%; max-width: 400px; height: 200px; background: #222; 
-            margin: 20px auto; border-radius: 15px; overflow: hidden; position: relative;
-            border: 2px solid #333; box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            width: 95%; max-width: 450px; aspect-ratio: 16/9; background: #111; 
+            margin: 15px auto; border-radius: 15px; overflow: hidden; position: relative; border: 2px solid #333;
         }
 
-        /* --- GRID SQUAD (MENU UTAMA) --- */
-        .judul-section { 
-            text-align: center; font-size: 16px; font-weight: bold; margin-top: 20px; 
-            text-transform: uppercase; letter-spacing: 2px; color: #fff;
+        /* Pelayanan Panggung Depan */
+        .niaga-box { 
+            background: var(--putih); margin: 0 15px 15px; padding: 12px; border-radius: 12px; 
+            border-left: 8px solid var(--neon); color: var(--biru);
+        }
+        
+        /* Selasar Makrifat (Area Komentar Utama) */
+        .selasar-makrifat {
+            margin: 15px; background: #000; border: 1px solid var(--neon);
+            border-radius: 12px; padding: 10px;
+        }
+        #display-komentar {
+            height: 180px; overflow-y: auto; font-size: 11px; color: #ccc;
+            line-height: 1.5; margin-bottom: 10px;
         }
 
-        .level-badge {
-            font-size: 8px; background: #333; padding: 2px 6px; border-radius: 4px; margin-bottom: 5px; color: #aaa;
+        .input-chat { display: flex; gap: 5px; background: #111; padding: 5px; border-radius: 5px; }
+        .input-chat input { flex: 1; background: transparent; border: none; color: white; font-size: 11px; outline: none; }
+
+        /* Menu Game Minimalis */
+        .mini-game-bar { display: flex; gap: 8px; overflow-x: auto; padding: 0 15px; margin-bottom: 15px; }
+        .mini-card {
+            flex: 0 0 auto; background: var(--card-bg); padding: 8px 12px;
+            border-radius: 8px; text-decoration: none; color: #fff;
+            font-size: 10px; border: 1px solid #333; display: flex; align-items: center; gap: 5px;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Kolom */
-            gap: 10px;
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 0 10px;
+        /* Sirkuit Data Admin */
+        .sirkuit-container {
+            background: #111; padding: 10px; margin: 10px 15px; border-radius: 10px;
+            border: 1px solid var(--emas); display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
         }
+        .folder-btn { text-align: center; color: white; cursor: pointer; }
 
-        /* CARD 3D ENGINE */
-        .card-container {
-            background-color: transparent; width: 100%; height: 110px;
-            perspective: 1000px; cursor: pointer;
-        }
-
-        .card-inner {
-            position: relative; width: 100%; height: 100%; text-align: center;
-            transition: transform 0.6s; transform-style: preserve-3d;
-        }
-
-        .card-container:hover .card-inner, .card-container:active .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front, .card-back {
-            position: absolute; width: 100%; height: 100%;
-            -webkit-backface-visibility: hidden; backface-visibility: hidden;
-            border-radius: 12px; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-        }
-
-        .card-front { background: #1a1a1a; border: 1px solid #333; color: var(--emas); }
-        .card-back { background: linear-gradient(135deg, var(--emas), #8a6e00); color: #000; transform: rotateY(180deg); }
-        .special-ops .card-back { background: linear-gradient(135deg, #800000, #ff0000); color: #fff; }
-
-        .avatar { font-size: 30px; margin-bottom: 2px; }
-        .role { font-size: 8px; font-weight: bold; text-transform: uppercase; padding: 0 5px; }
-        .username { font-size: 9px; font-weight: bold; }
-        .desc { font-size: 8px; line-height: 1.2; margin-top: 2px; }
-
-        /* WARNA LEVEL */
-        .lvl-easy { color: #00ff00; } /* Hijau */
-        .lvl-med { color: #ffff00; } /* Kuning */
-        .lvl-hard { color: #ff0000; } /* Merah */
-
-        /* --- CHAT AREA --- */
-        .chat-box {
-            background: #111; border: 1px solid #333; border-radius: 10px;
-            margin: 20px 10px; padding: 10px;
-        }
-
-        /* --- FOOTER --- */
-        footer { 
-            background: #111; color: var(--emas); padding: 8px; 
-            position: fixed; bottom: 0; width: 100%; z-index: 999; 
-            border-top: 1px solid #333; font-size: 10px;
-        }
+        footer { background: #000; color: var(--emas); padding: 8px; position: fixed; bottom: 0; width: 100%; z-index: 1000; font-size: 10px; }
+        .tag { background: #ff42e0; padding: 4px 10px; border-radius: 50px; font-size: 0.7em; font-weight: bold; }
     </style>
 </head>
-<body>
+<body onload="updateTime()">
 
 <header>
-    <div style="font-size: 14px; font-weight: bold; letter-spacing:1px;">INDRAMAYU CLUB</div>
+    <div>
+        <div style="font-size: 13px; font-weight: bold; color: var(--biru);">🦞 INDRAMAYU CLUB</div>
+        <div id="currentTime"></div>
+    </div>
     <div style="display: flex; gap: 10px; align-items: center;">
-        <button onclick="alert('Fitur Login Sedang Maintenance')" style="background:transparent; border:1px solid #555; color:#aaa; padding:5px 10px; border-radius:5px; font-size:10px;">LOGIN</button>
-        <button class="btn-game-3d" onclick="menujuArena()">🎮</button>
+        <div style="text-align: right; font-size: 7px; color: #333; line-height: 1.2;">
+            <span style="color: var(--merah);">●</span> TERKUNCI<br>ID: 774026331723964
+        </div>
+        <button class="btn-game-3d" onclick="keGameOnline()">🕹️</button>
     </div>
 </header>
 
+<div class="header-section">
+    <span class="tag">Exclusive for Member</span>
+    <h2 style="margin: 8px 0 4px 0; font-size: 18px;">Pusat Makrifat & Hiburan</h2>
+    <p style="font-size: 11px; opacity: 0.9;">Kecantikan Nur dan Teknologi AI dalam satu genggaman.</p>
+</div>
+
 <div class="visual-screen">
-    <img src="https://uploads.onecompiler.io/448r2umqe/44aq44qxn/1000021042.jpg" style="width:100%; height:100%; object-fit:cover; opacity:0.7;">
-    <div style="position:absolute; bottom:10px; left:10px; font-size:10px; color:#fff; background:rgba(0,0,0,0.6); padding:2px 5px;">
-        🎵 LIVE: Gudang Game & Hiburan
+    <img src="https://uploads.onecompiler.io/448r2umqe/44aq6y4je/1000023476.jpg" style="width:100%; height:100%; object-fit:cover;">
+    <div style="position:absolute; top:8px; right:8px; color:white; font-size:9px; background: rgba(255,0,0,0.8); padding: 2px 6px; border-radius: 4px;">LIVE EMULATOR</div>
+</div>
+
+<div class="niaga-box">
+    <div style="font-size: 11px; font-weight: bold;">AI MEDSOS INDRAMAYUCLUB</div>
+    <div style="font-size: 9px; color: #666;">Pelayanan: imahazzah51@gmail.com</div>
+    <div style="font-size: 9px; color: #111; font-style: italic; background: #f0f0f0; padding: 5px; border-radius: 5px; margin-top: 5px;">
+        "Transaksi Global (PayPal & QRIS) Taiwan/Hong Kong Aktif."
     </div>
 </div>
 
-<div class="judul-section">PILIH TINGKAT PERMAINAN</div>
-
-<div class="grid-container">
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-easy">LVL 1: EASY</div>
-                <div class="avatar">🎬</div><div class="role">GUDANG GAME</div>
-            </div>
-            <div class="card-back"><div class="username">@kurnadibewok</div><div class="desc">Creator & Penyanyi<br>(Hiburan)</div></div>
-        </div>
+<div class="selasar-makrifat">
+    <div style="color: var(--neon); font-size: 10px; margin-bottom: 5px; font-weight: bold;">💬 SELASAR MAKRIFAT</div>
+    <div id="display-komentar">
+        <div style="color: gold;">[Sistem]: Gudang Indramayu Club Terhubung...</div>
+        <div><span style="color:var(--neon)">●</span> Menjaga kejujuran adalah kunci kemakrifatan.</div>
     </div>
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-easy">LVL 1: EASY</div>
-                <div class="avatar">📱</div><div class="role">INFO CENTER</div>
-            </div>
-            <div class="card-back"><div class="username">@aimininur</div><div class="desc">Pelayanan Info<br>Ramah Tamah</div></div>
-        </div>
+    <div class="input-chat">
+        <input type="text" id="pesan-member" placeholder="Tulis mutiara kata...">
+        <button onclick="kirimPesan()" style="background:var(--neon); border:none; border-radius:3px; padding:2px 10px; font-weight:bold; cursor:pointer;">GAS</button>
     </div>
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-easy">LVL 1: EASY</div>
-                <div class="avatar">👑</div><div class="role">GAME CATUR</div>
-            </div>
-            <div class="card-back"><div class="username">@Indramayuclub</div><div class="desc">Halaman Depan<br>& Santai</div></div>
-        </div>
-    </div>
-
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-med">LVL 2: MEDIUM</div>
-                <div class="avatar">✨</div><div class="role">SPIRITUAL</div>
-            </div>
-            <div class="card-back"><div class="username">@motherai</div><div class="desc">Guru & Mentor<br>(Olah Rasa)</div></div>
-        </div>
-    </div>
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-med">LVL 2: MEDIUM</div>
-                <div class="avatar">💸</div><div class="role">GAME ARISAN</div>
-            </div>
-            <div class="card-back"><div class="username">@imahazzah51</div><div class="desc">Toko Elektronik<br>& Keuangan</div></div>
-        </div>
-    </div>
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-med">LVL 2: MEDIUM</div>
-                <div class="avatar">💬</div><div class="role">CARI BAKAT</div>
-            </div>
-            <div class="card-back"><div class="username">@dkohar011</div><div class="desc">Admin Group<br>Seleksi</div></div>
-        </div>
-    </div>
-
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-hard">LVL 3: HARD</div>
-                <div class="avatar">🏦</div><div class="role">BANK PUSAT</div>
-            </div>
-            <div class="card-back"><div class="username">System Auto</div><div class="desc">Potongan 5%<br>High Level</div></div>
-        </div>
-    </div>
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-hard">LVL 3: HARD</div>
-                <div class="avatar">🤝</div><div class="role">EMULATOR PS</div>
-            </div>
-            <div class="card-back"><div class="username">Unit Khusus</div><div class="desc">Monitor & HRD<br>Teknis</div></div>
-        </div>
-    </div>
-
-    <div class="card-container">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-hard">LVL 3: HARD</div>
-                <div class="avatar">🛡️</div><div class="role">KETAHANAN</div>
-            </div>
-            <div class="card-back"><div class="username">@NurBackup</div><div class="desc">Security Data<br>& Reset</div></div>
-        </div>
-    </div>
-
-    <div class="card-container special-ops" style="grid-column: span 3;">
-        <div class="card-inner">
-            <div class="card-front">
-                <div class="level-badge lvl-hard" style="color:red; border:1px solid red;">☠️ BOSS LEVEL</div>
-                <div class="avatar">⚔️</div>
-                <div class="role">APP GUARDIANS (AI TWINS)</div>
-            </div>
-            <div class="card-back">
-                <div class="username">@jam.dul (Proton)</div>
-                <div class="desc">AI MUBIN & KESATRIA<br>Penjaga Gerbang Terakhir</div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
-<div class="chat-box">
-    <div style="font-size:10px; color:#555; margin-bottom:5px;">📢 SELASAR MAKRIFAT (LIVE CHAT)</div>
-    <div id="display-komentar" style="height: 60px; overflow-y: scroll; font-size: 10px; color: #aaa; border-bottom:1px solid #333; margin-bottom:5px;">
-        <div style="color: gold;">[Sistem]: Peta Permainan Dimulai dari Level Mudah...</div>
-    </div>
-    <div style="display: flex; gap: 3px;">
-        <input type="text" id="pesan-member" placeholder="Ketik pesan..." style="flex:1; background:#222; border:none; color:white; padding:5px; font-size:10px;">
-        <button onclick="kirimRealTime()" style="background:var(--biru); color:white; border:none; padding:5px 10px; font-size:10px;">KIRIM</button>
-    </div>
+<div class="mini-game-bar">
+    <a href="https://www.chess.com/" target="_blank" class="mini-card">♟️ Catur</a>
+    <a href="https://venge.io/" target="_blank" class="mini-card">🎯 Venge.io</a>
+    <a href="https://www.crazygames.co.id/game/block-puzzle-master" target="_blank" class="mini-card">🧩 Block</a>
+    <a href="https://skinive.com/" target="_blank" class="mini-card">✨ Skinive AI</a>
+</div>
+
+<div class="sirkuit-container">
+    <div class="folder-btn" onclick="aksesFolder('Gudang')"><div style="font-size: 20px;">🏛️</div><div style="font-size:6px;">GUDANG</div></div>
+    <div class="folder-btn" onclick="aksesFolder('09')"><div style="font-size: 20px;">📂</div><div style="font-size:6px;">F-09</div></div>
+    <div class="folder-btn" onclick="aksesFolder('08')"><div style="font-size: 20px;">📂</div><div style="font-size:6px;">F-08</div></div>
+    <div class="folder-btn" onclick="aksesFolder('07')"><div style="font-size: 20px;">📂</div><div style="font-size:6px;">F-07</div></div>
+</div>
+
+<div style="text-align: center; font-size: 9px; color: #55566a; margin-bottom: 10px;">
+    Sistem oleh Nur 03 | Backstage: AI Mubin & AI Kesatria
 </div>
 
 <footer>
-    <marquee>📻 ADZAN OTOMATIS AKTIF (30 MENIT ISTIRAHAT)... MARI MENJAGA KEJUJURAN MUTLAK... 🕌</marquee>
+    <marquee>📻 ADZAN OTOMATIS & MUSIK LIBE AKTIF... 🧲 DIAWASI OLEH MENTERI KEUANGAN NUR 3... 🧲 MARI MENJAGA KEJUJURAN MUTLAK...</marquee>
 </footer>
 
 <script>
-    function menujuArena() {
-        alert('Menghubungkan Kabel AI Satria... Jalur VVIP Terbuka!');
-        window.location.href = "https://indramayuclub.uptodown.com"; 
-    }
+function updateTime() {
+    const now = new Date();
+    document.getElementById('currentTime').innerText = now.toLocaleString('id-ID');
+    setTimeout(updateTime, 1000);
+}
 
-    function kirimRealTime() {
-        const input = document.getElementById('pesan-member');
-        const display = document.getElementById('display-komentar');
-        if(input.value) {
-            if (input.value.toLowerCase().match(/saldo|transfer|duit|bayar/)) {
-                alert("🚨 AI Kesatria: Urusan uang sakral! Hubungi Bendahara.");
-                window.open("https://wa.me/6281386517352", "_blank");
-                return;
-            }
-            const b = document.createElement('div');
-            b.innerHTML = `<span style="color:#00ff00">●</span> ${input.value}`;
-            display.appendChild(b);
-            display.scrollTop = display.scrollHeight;
-            input.value = "";
-        }
+function kirimPesan() {
+    const input = document.getElementById('pesan-member');
+    const display = document.getElementById('display-komentar');
+    if(input.value) {
+        const d = document.createElement('div');
+        d.innerHTML = `<span style="color:#00ff00">●</span> ${input.value}`;
+        display.appendChild(d);
+        display.scrollTop = display.scrollHeight;
+        input.value = "";
     }
+}
+
+function keGameOnline() {
+    alert("🚨 AI KESATRIA: Membuka Arena VVIP. Saldo 500 Rupiah Siap?");
+    window.location.href = "https://wa.me/6281386517352?text=SAYA%20ADMIN%20MAU%20CEK%20EMULATOR";
+}
+
+function aksesFolder(id) {
+    alert("🚨 PIRAMIDA GUARD: Membuka Ruang Admin " + id + " melalui Gudang Indramayu Club.");
+    window.open("https://wa.me/6281386517352?text=SAYA%20ADMIN%20MAU%20AKSES%20DATA%20" + id, "_blank");
+}
 </script>
-
 </body>
 </html>
+
