@@ -144,6 +144,66 @@ function aksesFolder(id) {
     </iframe>
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);"></div>
 </div>
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Indramayu Club - Komunikasi Makrifat</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: white; }
+        #bg-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        #nur-avatar { width: 200px; cursor: pointer; transition: 0.3s; }
+        #nur-avatar:hover { transform: scale(1.05); }
+        .pulse { width: 15px; height: 15px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00; animation: pulse-green 2s infinite; display: inline-block; margin-right: 10px; }
+        @keyframes pulse-green { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 0, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); } }
+        .audio-btn { background: #ffd700; color: black; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; margin: 15px; }
+    </style>
+</head>
+<body>
+    <div id="bg-container">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/oA5tGD2C2eA?autoplay=1&mute=1&loop=1&playlist=oA5tGD2C2eA&controls=0" frameborder="0"></iframe>
+    </div>
+
+    <div class="overlay">
+        <h1>اَلسَّلَامُ عَلَيْكُمْ</h1>
+        <p>"Ilmu adalah cahaya, makrifat adalah kunci pencerahan."</p>
+        
+        <img src="https://i.imgur.com/your-robot-nur.png" id="nur-avatar" alt="Nur AI">
+        
+        <div>
+            <div class="pulse"></div><span>NUR SYSTEM: ONLINE</span>
+        </div>
+
+        <button class="audio-btn" id="voiceToggle" onclick="toggleNurVoice()">🔊 Aktifkan Suara Nur</button>
+
+        <div id="rating-section">
+            <p>Rating Kejujuran Member:</p>
+            <span onclick="setRating(1)">⭐</span><span onclick="setRating(2)">⭐</span><span onclick="setRating(3)">⭐</span><span onclick="setRating(4)">⭐</span><span onclick="setRating(5)">⭐</span>
+        </div>
+
+        <br>
+        <button onclick="location.href='inkubator.html'" style="padding: 10px;">Masuk Ke Inkubator</button>
+        <h3>الْحَمْدُ لِلَّهِ</h3>
+    </div>
+
+    <script>
+        function toggleNurVoice() {
+            const btn = document.getElementById('voiceToggle');
+            // Logika simulasi suara "Assalamu'alaikum"
+            if (btn.innerText.includes("Aktifkan")) {
+                btn.innerText = "🔇 Matikan Suara";
+                alert("Nur: اَلسَّلَامُ عَلَيْكُمْ. Selamat datang di Indramayu Club.");
+            } else {
+                btn.innerText = "🔊 Aktifkan Suara Nur";
+            }
+        }
+        function setRating(val) { alert("Rating " + val + " Bintang diterima. Alhamdulillah."); }
+    </script>
+</body>
+</html>
+
+    
 
 
 </body>
