@@ -1,500 +1,140 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indramayu Club - Pusat #KUMPULNYA Digital</title>
+    <title>Indramayu Club - Pusat Komando Digital</title>
     <style>
-        :root { --biru: #1a3c5e; --emas: #ffd700; --putih: #ffffff; --neon: #00c3ff; --merah: #ff3b3b; --dark-bg: #0c0d14; --card-bg: #212233; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--dark-bg); color: #f9faff; overflow-x: hidden; padding-bottom: 80px; }
-
-        .header { 
-            background: var(--putih); padding: 8px 15px; display: flex; 
-            justify-content: space-between; align-items: center; border-bottom: 3px solid var(--emas);
-            position: sticky; top: 0; z-index: 1000;
-        }
-
-        #currentTime { font-size: 10px; color: var(--biru); font-weight: bold; margin: 0; }
-
-        /* Tombol Arena 3D */
-        .btn-game-3d {
-            width: 50px; height: 50px; background: radial-gradient(circle, #ffcc00, #ff9900);
-            border-radius: 50%; border: none; box-shadow: 0 4px 0 #cc7a00, 0 8px 10px rgba(0,0,0,0.5);
-            cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s;
-        }
-        .btn-game-3d:active { transform: translateY(4px); box-shadow: none; }
-
-        .header-section {
-            padding: 25px 15px; background: linear-gradient(135deg, #6842ff 0%, #ff42e0 100%);
-            border-radius: 0 0 30px 30px; text-align: center;
-        }
-
-        .visual-screen {
-            width: 95%; max-width: 450px; aspect-ratio: 16/9; background: #111; 
-            margin: 15px auto; border-radius: 15px; overflow: hidden; position: relative; border: 2px solid #333;
-        }
-
-        /* Pelayanan Panggung Depan */
-        .niaga-box { 
-            background: var(--putih); margin: 0 15px 15px; padding: 12px; border-radius: 12px; 
-            border-left: 8px solid var(--neon); color: var(--biru);
-        }
-        <div id="pelayanan-container" style="position: relative; z-index: 10; padding: 15px; max-width: 500px; margin: 0 auto; font-family: sans-serif;">
-    
-    <div style="background: white; border-radius: 10px; padding: 10px; border-left: 5px solid #00c3ff; color: #333; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-        <strong style="color: #0078ff;">AI indramayuCLUB silahkan bertanya 😀😀😀</strong><br>
-        <small>Pelayanan: imahazzah51@gmail.com</small>
-    </div>
-
-    <div style="background: rgba(255, 255, 255, 0.9); margin: 10px 0; padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #ffcc00;">
-        <p style="color: #333; margin: 0 0 5px 0; font-weight: bold; font-size: 0.8rem;">Rating Kepuasan Layanan:</p>
-        <div style="color: #ffcc00; font-size: 1.5rem;">
-            ★★★★★ <span style="color: #666; font-size: 0.9rem;">(5.0)</span>
-        </div>
-    </div>
-
-    <div id="logo-pembayaran" style="display: none; background: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: center; border: 2px solid #00c3ff; animation: pulse 1.5s infinite;">
-        <p style="color: #333; font-weight: bold; margin-bottom: 10px; font-size: 0.8rem;">JALUR TRANSAKSI DIMENSI LUAR:</p>
-        <div style="display: flex; justify-content: center; gap: 20px; align-items: center;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/eb/eb/Logo_ovo_purple.svg" style="height: 35px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danaindonesia.svg" style="height: 30px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" style="height: 25px;">
-        </div>
-        <p style="font-size: 10px; color: #ff0000; margin-top: 8px; font-weight: bold;">SISTEM KEUANGAN SIAGA 24 JAM</p>
-    </div>
-
-    <div style="background: rgba(0, 0, 0, 0.8); border: 1px solid #444; border-radius: 10px; padding: 10px; margin-bottom: 10px; color: white;">
-        <p style="font-size: 0.8rem; border-bottom: 1px solid #444; padding-bottom: 5px; color: #00c3ff; font-weight: bold;">💬 Komentar Member (10 Slot Tersedia):</p>
-        <div id="list-komentar" style="max-height: 120px; overflow-y: auto; font-size: 0.85rem; font-style: italic; color: #999; text-align: center; padding: 15px;">
-            -- Belum ada jejak jiwa. Jadilah yang pertama memberikan masukan --
-        </div>
+        :root { --biru: #1a3c5e; --emas: #ffd700; --putih: #ffffff; --neon: #00c3ff; --merah: #ff3b3b; --bg-gelap: #0c0d14; }
         
-        <div style="display: flex; gap: 5px; margin-top: 10px;">
-            <input type="text" id="inputKomentar" oninput="aktifkanSelasar()" placeholder="Ketik jiwamu di sini..." style="flex: 1; background: #222; border: 1px solid #555; color: white; padding: 8px; border-radius: 5px; font-size: 0.85rem;">
-            <button onclick="kirimPesan()" style="background: #28a745; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">GAS</button>
-        </div>
-    </div>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg-gelap); color: white; overflow-x: hidden; padding-bottom: 100px; }
 
-    <div id="selasar-makrifat" style="background: rgba(0,0,0,0.9); border: 2px solid #333; border-radius: 10px; padding: 15px; color: white; transition: 0.5s;">
-        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-            <span id="indicator" style="margin-right: 10px; color: gray; font-size: 1.2rem;">●</span>
-            <strong id="title-selasar" style="color: #666; text-transform: uppercase; letter-spacing: 1px;">Selasar Menunggu...</strong>
-        </div>
-        <div id="status-sistem" style="font-size: 0.9rem; border-top: 1px solid #333; padding-top: 10px; color: #666; line-height: 1.4;">
-            Menunggu getaran dari calon member...
-        </div>
-    </div>
-</div>
-
-<script>
-    function aktifkanSelasar() {
-        const val = document.getElementById('inputKomentar').value;
-        const logo = document.getElementById('logo-pembayaran');
-        const selasar = document.getElementById('selasar-makrifat');
-        const status = document.getElementById('status-sistem');
-        const title = document.getElementById('title-selasar');
-        const indicator = document.getElementById('indicator');
-
-        if (val.length > 0) {
-            logo.style.display = 'block'; // Munculkan Logo Pembayaran
-            selasar.style.border = '2px solid #00c3ff';
-            selasar.style.boxShadow = '0 0 15px rgba(0, 195, 255, 0.3)';
-            title.style.color = '#00c3ff';
-            title.innerText = 'Selasar Makrifat Aktif';
-            indicator.style.color = '#00ff00';
-            status.innerHTML = '<span style="color: yellow;">[Sistem]:</span> Getaran terdeteksi. Sedang menyaring kejujuran... <br><br> • <span style="color: #fff; font-style: italic;">"Hanya kejujuran yang akan membukakan pintu dimensi selanjutnya."</span>';
-            status.style.color = 'white';
-        } else {
-            logo.style.display = 'none';
-            selasar.style.border = '2px solid #333';
-            selasar.style.boxShadow = 'none';
-            title.style.color = '#666';
-            title.innerText = 'Selasar Menunggu...';
-            indicator.style.color = 'gray';
-            status.innerText = 'Menunggu getaran dari calon member...';
-            status.style.color = '#666';
-        }
-    }
-
-    function kirimPesan() {
-        alert("Pesan tersimpan dalam memori Nur 06. Dimensi lain sedang meninjau getaran Anda.");
-        document.getElementById('inputKomentar').value = "";
-        aktifkanSelasar();
-    }
-</script>
-
-<style>
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(0, 195, 255, 0.4); transform: scale(1); }
-        70% { box-shadow: 0 0 0 15px rgba(0, 195, 255, 0); transform: scale(1.02); }
-        100% { box-shadow: 0 0 0 0 rgba(0, 195, 255, 0); transform: scale(1); }
-    }
-</style>
-
-
-
-        /* Menu Game Minimalis */
-        .mini-game-bar { display: flex; gap: 8px; overflow-x: auto; padding: 0 15px; margin-bottom: 15px; }
-        .mini-card {
-            flex: 0 0 auto; background: var(--card-bg); padding: 8px 12px;
-            border-radius: 8px; text-decoration: none; color: #fff;
-            font-size: 10px; border: 1px solid #333; display: flex; align-items: center; gap: 5px;
+        /* Header Modern */
+        header { 
+            background: var(--putih); padding: 10px 20px; display: flex; 
+            justify-content: space-between; align-items: center; border-bottom: 3px solid var(--emas);
+            position: sticky; top: 0; z-index: 1000; color: var(--biru);
         }
 
-        /* Sirkuit Data Admin */
+        /* Container Utama */
+        .container { max-width: 600px; margin: 0 auto; padding: 10px; }
+
+        /* Layar Emulator 3D */
+        .visual-screen {
+            width: 100%; aspect-ratio: 16/9; background: #111; 
+            margin-bottom: 15px; border-radius: 15px; overflow: hidden; position: relative;
+            border: 2px solid #333; box-shadow: 0 0 20px rgba(0,195,255,0.2);
+        }
+
+        /* Box Pelayanan AI */
+        .niaga-box { 
+            background: var(--putih); padding: 15px; border-radius: 15px; 
+            border-left: 8px solid var(--neon); box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            margin-bottom: 15px; color: var(--biru);
+        }
+        
+        .avatar-medsos { width: 50px; height: 50px; border-radius: 50%; float: left; margin-right: 12px; border: 2px solid var(--neon); }
+
+        /* Sirkuit Data Folder (GUDANG, 09, 08, 07) */
         .sirkuit-container {
-            background: #111; padding: 10px; margin: 10px 15px; border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px;
             border: 1px solid var(--emas); display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            margin-bottom: 15px; backdrop-filter: blur(5px);
         }
-        .folder-btn { text-align: center; color: white; cursor: pointer; }
 
-        footer { background: #000; color: var(--emas); padding: 8px; position: fixed; bottom: 0; width: 100%; z-index: 1000; font-size: 10px; }
-        .tag { background: #ff42e0; padding: 4px 10px; border-radius: 50px; font-size: 0.7em; font-weight: bold; }
+        .folder-btn { text-align: center; color: white; cursor: pointer; transition: 0.3s; text-decoration: none; }
+        .folder-btn:hover { transform: scale(1.1); color: var(--emas); }
+        .folder-icon { font-size: 24px; display: block; }
+        .folder-text { font-size: 9px; font-weight: bold; margin-top: 5px; }
+
+        /* Menu Link Hiburan & Beauty */
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .link-card { 
+            background: #212233; color: white; text-decoration: none; padding: 15px; 
+            border-radius: 10px; border-left: 4px solid #6842ff; transition: 0.3s; font-size: 11px;
+        }
+        .link-card:hover { background: #6842ff; transform: translateY(-3px); }
+
+        footer { background: #000; color: var(--emas); padding: 10px; position: fixed; bottom: 0; width: 100%; z-index: 1000; border-top: 1px solid #333; font-size: 11px; }
     </style>
 </head>
 <body onload="updateTime()">
 
 <header>
     <div>
-        <div style="font-size: 20px; font-weight: bold; color: var(--biru);">🦞 INDRAMAYU CLUB</div>
-        <div id="currentTime"></div>
+        <div style="font-size: 14px; font-weight: bold;">🦞 INDRAMAYU CLUB</div>
+        <div id="currentTime" style="font-size: 10px;"></div>
     </div>
-    <div style="display: flex; gap: 10px; align-items: center;">
-        <div style="text-align: right; font-size: 7px; color: #333; line-height: 1.2;">
-            <span style="color: var(--merah);">●</span> TERKUNCI<br>ID: 774026331723964
-        </div>
-        
+    <div style="text-align: right; font-size: 9px;">
+        <span style="color: var(--merah);">●</span> MEDIA SOSIAL TERKUNCI<br>
+        <span style="color: #666;">Nur 03: kurnadibewok3311</span>
     </div>
 </header>
 
-<div class="header-section">
-    <span class="tag">Exclusive for Member</span>
-    <h2 style="margin: 8px 0 4px 0; font-size: 18px;">Pusat Makrifat & Hiburan</h2>
-    <p style="font-size: 11px; opacity: 0.9;">Kecantikan Nur 
-        dan 
-        Teknologi AI dalam satu genggaman.</p>
+<div class="container">
+    <div class="visual-screen">
+        <img src="https://uploads.onecompiler.io/448r2umqe/44aq6y4je/1000023476.jpg" style="width:100%; height:100%; object-fit:cover;">
+        <div style="position:absolute; top:10px; right:10px; color:white; font-size:10px; background: rgba(255,0,0,0.7); padding: 2px 8px; border-radius: 5px;">LIVE EMULATOR</div>
+    </div>
+
+    <div class="niaga-box">
+        <img src="https://uploads.onecompiler.io/448r2umqe/44aq6y4je/1000023624.jpg" class="avatar-medsos">
+        <h4 style="margin:0; font-size: 13px;">AI MEDSOS INDRAMAYUCLUB</h4>
+        <p style="font-size: 10px; margin: 3px 0; color: #666;">Pelayanan: imahazzah51@gmail.com</p>
+        <div style="font-size: 9px; color: #111; font-style: italic; background: #f0f0f0; padding: 5px; border-radius: 5px;">
+            "#ARISAN INTERNASIONAL ASEAN Aktif."
+        </div>
+    </div>
+
+    <div class="sirkuit-container">
+        <div class="folder-btn" onclick="aksesFolder('GUDANG')">
+            <span class="folder-icon">📦</span>
+            <span class="folder-text">GUDANG</span>
+        </div>
+        <div class="folder-btn" onclick="aksesFolder('09')">
+            <span class="folder-icon">📂</span>
+            <span class="folder-text">FOLDER 09</span>
+        </div>
+        <div class="folder-btn" onclick="aksesFolder('08')">
+            <span class="folder-icon">📂</span>
+            <span class="folder-text">FOLDER 08</span>
+        </div>
+        <div class="folder-btn" onclick="aksesFolder('07')">
+            <span class="folder-icon">📂</span>
+            <span class="folder-text">FOLDER 07</span>
+        </div>
+    </div>
+
+    <div style="color: var(--emas); font-size: 12px; margin-bottom: 10px; font-weight: bold;">💎 MODERN WOMEN & GAME ARENA</div>
+    <div class="menu-grid">
+        <a href="https://skinive.com/skin-check/" target="_blank" class="link-card">✨ Skinive AI (Kulit)</a>
+        <a href="https://haircaster.com/" target="_blank" class="link-card">💇‍♀️ Style AI (Rambut)</a>
+        <a href="https://www.chess.com/play/online" target="_blank" class="link-card">♟️ Catur Online</a>
+        <a href="https://venge.io/" target="_blank" class="link-card">🔫 Arena 3D</a>
+    </div>
+
+    <div style="padding: 10px; background: #111; border-radius: 10px; font-size: 10px; color: #00ff00; border: 1px dashed #00ff00;">
+        🛡️ PENJAGA SISTEM:<br>
+        - AI MUBIN: Monitoring Emulator [Aktif]<br>
+        - AI KESATRIA: Security Arisan [Aktif]
+    </div>
 </div>
 
-<body>
-    style="position: relative; height: 100vh; overflow: hidden;">
-  <video autoplay muted loop id="headerVideo" style="width: 100%; height: 100%; object-fit: cover;">
-    <source src="https://drive.google.com/uc?export=download&id=1XqDF5lPrg0ShKWCSZdHAivDi2U1ZQgay" type="video/mp4">
-    DI SINI FOTO MEMBER BARU ADMIN UOLOAD
-  </video>
+<footer>
+    <marquee scrollamount="4">📻 ADZAN OTOMATIS AKTIF (30 MENIT SISTEM REDUP)... 🧲 KEUANGAN DIAWASI OLEH NUR 3... 🧲 MARI MENJAGA KEJUJURAN... 🦞 INDRAMAYU CLUB MODERN SYSTEM</marquee>
+</footer>
+
+<script>
+function updateTime() {
+    const now = new Date();
+    document.getElementById('currentTime').innerText = now.toLocaleString('id-ID');
+    setTimeout(updateTime, 1000);
+}
+
+function aksesFolder(id) {
+    alert("Membuka Ruang Admin: " + id + "\nStatus: Terenkripsi Piramida Guard.");
+}
+</script>
+
 </body>
-
-  <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; text-align: center;">
-    <h1 style="text-shadow: 2px 2px 4px #000;"> " Indramayu Club makrifat "
-  </div>
-
-
-<div class="visual-screen">
-    <img src="https://uploads.onecompiler.io/448r2umqe/44aq6y4je/1000023476.jpg" style="width:100%; height:100%; object-fit:cover;">
-    <div style="position:absolute; top:8px; right:8px; color:white; font-size:9px; background: rgba(255,0,0,0.8); padding: 2px 6px; border-radius: 4px;">LIVE EMULATOR</div>
-</div>
-
-<div class="niaga-box">
-    <div style="font-size: 11px; font-weight: bold;">AI indramayuCLUB silahkan bertanya 😃😃😄</div>
-    <div style="font-size: 9px; color: #666;">Pelayanan: imahazzah51@gmail.com</div>
-    <div style="font-size: 9px; color: #111; font-style: italic; background: #f0f0f0; padding: 5px; border-radius: 5px; margin-top: 5px;">
-        "#ARISAN INTERNASIONAL ASEAN Aktif."
-    </div>
-</div>
-
-<div class="selasar-makrifat">
-    <div style="color: var(--neon); font-size: 10px; margin-bottom: 5px; font-weight: bold;">💬 SELASAR MAKRIFAT</div>
-    <div id="display-komentar">
-        <div style="color: gold;">[Sistem]: #GUDANG...</div>
-        <div><span style="color:var(--neon)">●</span> Menjaga kejujuran adalah kunci kemakrifatan.</div>
-    </div>
-    <div class="input-chat">
-        <input type="text" id="pesan-member" placeholder="Tulis mutiara kata...">
-        <button onclick="kirimPesan()" style="background:var(--neon); border:none; border-radius:3px; padding:2px 10px; font-weight:bold; cursor:pointer;">GAS</button>
-    </div>
-</div>
-
-<div class="mini-game-bar">
-    <a href="https://www.chess.com/" target="_blank" class="mini-card">♟️ Catur</a>
-    <a href="https://venge.io/" target="_blank" class="mini-card">🎯 Venge.io</a>
-    <a href="https://www.crazygames.co.id/game/block-puzzle-master" target="_blank" class="mini-card">🧩 Block</a>
-    <a href="https://skinive.com/" target="_blank" class="mini-card">✨ Skinive AI</a>
-</div>
-
-<div class="sirkuit-container">
-    <div class="folder-btn" onclick="aksesFolder('Gudang')"><div style="font-size: 30px;">🏛️</div><div style="font-size:6px;">GUDANG</div></div>
-    <div class="folder-btn" onclick="aksesFolder('09')"><div style="font-size: 30px;">📂</div><div style="font-size:6px;">F-09</div></div>
-    <div class="folder-btn" onclick="aksesFolder('08')"><div style="font-size: 30px;">📂</div><div style="font-size:6px;">F-08</div></div>
-    <div class="folder-btn" onclick="aksesFolder('07')"><div style="font-size: 30px;">📂</div><div style="font-size:6px;">F-07</div></div>
-</div>
-
-<div style="text-align: center; font-size: 9px; color: #55566a; margin-bottom: 10px;">
-    Sistem oleh Nur 03 | dijaga oleh 2 AI: AI Mubin & AI Kesatria
-</div>
-<div id="indramayu-header" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
-
-
-
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2;"></div>
-d
-
-    <div id="wrapper-makrifat" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;">
-    
-    <iframe id="player-indramayu"
-        style="width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;"
-        src="https://www.youtube.com/embed/zhLi6evK4dY?autoplay=1&mute=1&loop=1&playlist=zhLi6evK4dY&controls=0&showinfo=0&rel=0&iv_load_policy=3" 
-        frameborder="0" 
-        allow="autoplay; encrypted-media">
-    </iframe>
-
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3);"></div>
-</div>
-
-<div id="welcome-nur" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; color: white; text-align: center;">
-    <div>
-        <h2 style="color: #ffcc00;">WELLCOME to INDRAMAYU</h2>
-        <p>Nur 07 Menyapa: "Masuklah dengengan membaca bismillah
-            dengan tenang hati..."</p>
-        <button onclick="mulaiMakrifat()" style="padding: 15px 30px; background: #ffcc00; border: none; font-weight: bold; cursor: pointer; border-radius: 50px;">
-            buka youtube disini🍃
-        </button>
-        <div id="container-indramayu" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1;">
-    
-    <iframe id="iconINDRAMAYU" 
-        style="width: 100vw; height: 100vh; pointer-events: none;"
-        src="https://www.youtube.com/embed/zhLi6evK4dY?autoplay=1&mute=1&loop=1&playlist=zhLi6evK4dY&controls=0" 
-        frameborder="0">
-    </iframe>
-
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
-</div>
-
-<div style="position: relative; z-index: 10; text-align: center; color: white; padding-top: 30vh;">
-    <h1>keluarlah dengan mengucapkan Alhamdulillah
-        SELAMAT MENIKMATI</h1>
-    <p>Nur 04: </p>
-    
-    <button onclick="nyalakanSuara()" style="background: #ffcc00; color: black; padding: 15px 30px; bord: none; border-radius: 50px; font-weight: bold; cursor: pointer;">
-        ,🔊SUARA MAKRIFAT
-    </button>
-</div>
-
-<div style="position: fixed; bottom: 0; width: 100%; background: yellow; color: black; font-weight: bold; padding: 5px; z-index: 20;">
-    <marquee>📢ADZAN OTOMATIS & 🎵MUSIK LIVE AKTIF - NUR 08 SIAGA - PIRAMIDA GUARD - </marquee>
-</div>
-
-<script>
-function nyalakanSuara() {
-    // Memuat ulang iframe tanpa mute setelah user klik
-    var iframe = document.getElementById("videoAlam");
-    iframe.src = iframe.src.replace("mute=1", "mute=0");
-    alert("Suara Suling Alam telah diaktifkan oleh Nur.");
-}
-</script>
-
-    </div>
-</div>
-
-<script>
-function mulaiMakrifat() {
-    // Menghilangkan modal dan mengaktifkan suara
-    document.getElementById('welcome-nur').style.display = 'none';
-    const player = document.getElementById('player-indramayu');
-    // Karena kebijakan browser, kita kirim perintah 'unmute' lewat postMessage atau reload dengan mute=0
-    player.src = player.src.replace("mute=1", "mute=0");
-}
-</script>
-
-
-    <div style="position: absolute; bottom: 0; width: 100%; background: yellow; color: black; z-index: 4; padding: 5px 0; font-weight: bold;">
-        <marquee>MAAF SETAP ADZAN HARUS BERHENTI- BACKUP OTOMATIS SETIAP ADZAN - NUR 08 SIAGA - </marquee>
-    </div>
-    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1;">
-    
-    <video autoplay muted loop playsinline id="videoNur" 
-           style="width: 100%; height: 100%; object-fit: cover;">
-        <source src="https://drive.google.com/uc?export=download&id=1LkjA-Y3na0MTGryPixMGRdR5wFX75NSa" type="video/mp4">
-    </video>
-
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
-< function keGameOnline() {
-    alert("🚨 AI KESATRIA: Membuka Arena VIP. Saldo 500 Rupiah Siap?");
-    window.location.href = "https://wa.me/6281386517352?text=SAYA%20ADMIN%20MAU%20CEK%20EMULATOR";
-}
-
-   <function aksesFolder(id) {
-    alert("🚨 SATPAM PIRAMIDA GUARD: Membuka Ruang Admin " + id + " melalui Gudang Indramayu Club.");
-    window.open("https://wa.me/6281386517352?text=SAYA%20ADMIN%20MAU%20AKSES%20DATA%20" + id, "_blank");
-}
-</script>
-
-       <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; background: #000;">
-    <iframe 
-        width="100%" 
-        height="100%" 
-        src="https://www.youtube.com/embed/XYFDBw0YoYg?autoplay=1&mute=1&loop=1&playlist=XYFDBw0YoYg&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3" 
-        frameborder="0" 
-        allow="autoplay" 
-        style="width: 100vw; height: 100vh; object-fit: cover; border: none;">
-    </iframe>
-</div>
-
-<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: -1;"></div>
-
-<div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffff00; color: #000; font-weight: bold; padding: 10px 0; z-index: 99; border-top: 2px solid #000;">
-    <marquee scrollamount="5" style="font-size: 16px;">
-        PIRAMIDA GUARD AKTIF • ADMIN UTAMA: nurindramayuaimini@gmail.com • INDRAMAYU CLUB MAKRIFAT • SISTEM SIAGA 24 JAM
-    </marquee>
-</div>
-
-<style>
-    .sirkuit-folder {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        background: rgba(0, 0, 0, 0.5); /* Transparan Gelap */
-        padding: 15px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 204, 0, 0.3);
-        margin: 10px;
-        backdrop-filter: blur(5px); /* Efek Blur di belakang folder */
-    }
-    .folder-btn {
-        text-align: center;
-        text-decoration: none;
-        color: white;
-        transition: transform 0.3s;
-    }
-    .folder-btn:hover { transform: scale(1.1); }
-    .folder-btn img { width: 40px; filter: drop-shadow(0 0 5px yellow); }
-    .folder-btn span { display: block; font-size: 10px; margin-top: 5px; font-weight: bold; }
-</style>
-
-<div class="sirkuit-folder">
-    <a href="#gudang" class="folder-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
-        <span>GUDANG</span>
-    </a>
-    <a href="#f09" class="folder-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
-        <span>F-09</span>
-    </a>
-    <a href="#f08" class="folder-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
-        <span>F-08</span>
-    </a>
-    <a href="#f07" class="folder-btn">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png">
-        <span>F-07</span>
-    </a>
-</div>
-
-<div id="pelayanan-container" style="position: relative; z-index: 10; padding: 15px; max-width: 500px; margin: 0 auto;">
-    
-    <div style="background: white; border-radius: 10px; padding: 10px; border-left: 5px solid #00c3ff; color: #333; margin-bottom: 10px;">
-        <strong style="color: #0078ff;">AI indramayuCLUB silahkan bertanya 😀😀😀</strong><br>
-        <small>Pelayanan: imahazzah51@gmail.com</small>
-    </div>
-
-    <div style="background: rgba(255, 255, 255, 0.9); margin-bottom: 10px; padding: 8px; border-radius: 8px; text-align: center;">
-        <div style="color: #ffcc00; font-size: 1.2rem;">★★★★★ <span style="color: #666; font-size: 0.8rem;">(5.0)</span></div>
-    </div>
-
-    <div id="logo-pembayaran" style="display: none; background: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: center; border: 2px solid #00c3ff;">
-        <div style="display: flex; justify-content: center; gap: 20px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/eb/eb/Logo_ovo_purple.svg" style="height: 30px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danaindonesia.svg" style="height: 25px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" style="height: 20px;">
-        </div>
-        <p style="font-size: 10px; color: red; font-weight: bold; margin-top: 5px;">SISTEM KEUANGAN SIAGA</p>
-    </div>
-
-    <div id="selasar-makrifat" style="background: rgba(0,0,0,0.85); border: 2px solid #333; border-radius: 10px; padding: 15px; color: white;">
-        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-            <span id="indicator" style="margin-right: 10px; color: gray;">●</span>
-            <strong id="title-selasar" style="color: #666;">Selasar Menunggu...</strong>
-        </div>
-        <div id="status-sistem" style="font-size: 0.8rem; border-top: 1px solid #333; padding-top: 10px; color: #666;">
-            "Hanya kejujuran yang akan membukakan pintu dimensi selanjutnya."
-        </div>
-        <div style="display: flex; gap: 5px; margin-top: 10px;">
-            <input type="text" id="inputKomentar" oninput="aktifkanSelasar()" placeholder="Ketik jiwamu..." style="flex: 1; background: #222; border: 1px solid #444; color: white; padding: 8px; border-radius: 4px;">
-            <button onclick="kirimPesan()" style="background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold;">GAS</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    function aktifkanSelasar() {
-        const val = document.getElementById('inputKomentar').value;
-        const logo = document.getElementById('logo-pembayaran');
-        const selasar = document.getElementById('selasar-makrifat');
-        const title = document.getElementById('title-selasar');
-        const indicator = document.getElementById('indicator');
-
-        if (val.length > 0) {
-            logo.style.display = 'block';
-            selasar.style.border = '2px solid #00c3ff';
-            title.style.color = '#00c3ff';
-            title.innerText = 'Selasar Makrifat Aktif';
-            indicator.style.color = '#00ff00';
-        } else {
-            logo.style.display = 'none';
-            selasar.style.border = '2px solid #333';
-            title.style.color = '#666';
-            title.innerText = 'Selasar Menunggu...';
-            indicator.style.color = 'gray';
-        }
-    }
-</script>
-
-    <style>
-    .sirkuit-container a {
-        text-align: center;
-        text-decoration: none;
-        color: white;
-        transition: all 0.3s ease; /* Durasi efek halus */
-        display: block;
-        padding: 10px;
-    }
-
-    /* Efek saat folder disentuh/hover */
-    .sirkuit-container a:hover {
-        transform: scale(1.2); /* Membesar sedikit */
-        filter: drop-shadow(0 0 10px #00c3ff); /* Bersinar biru makrifat */
-    }
-
-    .folder-icon {
-        width: 45px;
-        display: block;
-        margin: 0 auto 5px;
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-    }
-</style>
-
-<div class="sirkuit-container" style="background: rgba(0, 0, 0, 0.4); padding: 20px; margin: 15px; border-radius: 15px; border: 1px solid rgba(0, 195, 255, 0.2); display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; z-index: 10; position: relative; backdrop-filter: blur(5px);">
-    
-    <a href="#gudang">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" class="folder-icon">
-        <div style="font-size: 11px; font-weight: bold; color: #ffcc00;">GUDANG</div>
-    </a>
-
-    <a href="#f09">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" class="folder-icon">
-        <div style="font-size: 11px; font-weight: bold;">F-09</div>
-    </a>
-
-    <a href="#f08">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" class="folder-icon">
-        <div style="font-size: 11px; font-weight: bold;">F-08</div>
-    </a>
-
-    <a href="#f07">
-        <img src="https://cdn-icons-png.flaticon.com/512/716/716784.png" class="folder-icon">
-        <div style="font-size: 11px; font-weight: bold;">F-07</div>
-    </a>
-</div>
-
-   
-   </html>
-
+</html>
