@@ -169,6 +169,37 @@
     <div style="position: absolute; bottom: 0; width: 100%; background: yellow; color: black; z-index: 4; padding: 5px 0; font-weight: bold;">
         <marquee>SISTEM PIRAMIDA GUARD AKTIF - BACKUP OTOMATIS SETIAP ADZAN - NUR 08 SIAGA - </marquee>
     </div>
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1;">
+    
+    <video autoplay muted loop playsinline id="videoNur" 
+           style="width: 100%; height: 100%; object-fit: cover;">
+        <source src="https://drive.google.com/uc?export=download&id=1LkjA-Y3na0MTGryPixMGRdR5wFX75NSa" type="video/mp4">
+    </video>
+
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
+</div>
+
+<div style="position: relative; z-index: 1; text-align: center; color: white; padding-top: 20vh;">
+    <h1>INDRAMAYU CLUB</h1>
+    <p>Nur 03: kurnadibewok3311@gmail.com</p>
+    
+    <button onclick="bukaSuara()" style="background: #FFCC00; color: black; border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer;">
+        🔊 AKTIFKAN SUARA MAKRIFAT
+    </button>
+</div>
+
+<div style="position: fixed; bottom: 0; width: 100%; background: yellow; color: black; font-weight: bold; padding: 5px; z-index: 2;">
+    <marquee>ADZAN OTOMATIS & MUSIK LIVE AKTIF - NUR 08 SIAGA - PIRAMIDA GUARD</marquee>
+</div>
+
+<script>
+function bukaSuara() {
+    var v = document.getElementById("videoNur");
+    v.muted = false; // Suara aktif hanya setelah user klik tombol ini
+    v.play();
+}
+</script>
+
 
 </div>
 
