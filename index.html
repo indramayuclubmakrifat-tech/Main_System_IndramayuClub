@@ -166,6 +166,39 @@
         </button>
     </div>
 
+    <div id="wrapper-makrifat" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;">
+    
+    <iframe id="player-indramayu"
+        style="width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;"
+        src="https://www.youtube.com/embed/zhLi6evK4dY?autoplay=1&mute=1&loop=1&playlist=zhLi6evK4dY&controls=0&showinfo=0&rel=0&iv_load_policy=3" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media">
+    </iframe>
+
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3);"></div>
+</div>
+
+<div id="welcome-nur" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; color: white; text-align: center;">
+    <div>
+        <h2 style="color: #ffcc00;">SELAMAT DATANG DI INDRAMAYU CLUB</h2>
+        <p>Nur 07 Menyapa: "Masuklah ke dalam ketenangan..."</p>
+        <button onclick="mulaiMakrifat()" style="padding: 15px 30px; background: #ffcc00; border: none; font-weight: bold; cursor: pointer; border-radius: 50px;">
+            MULAI PENJELAJAHAN 🍃
+        </button>
+    </div>
+</div>
+
+<script>
+function mulaiMakrifat() {
+    // Menghilangkan modal dan mengaktifkan suara
+    document.getElementById('welcome-nur').style.display = 'none';
+    const player = document.getElementById('player-indramayu');
+    // Karena kebijakan browser, kita kirim perintah 'unmute' lewat postMessage atau reload dengan mute=0
+    player.src = player.src.replace("mute=1", "mute=0");
+}
+</script>
+
+
     <div style="position: absolute; bottom: 0; width: 100%; background: yellow; color: black; z-index: 4; padding: 5px 0; font-weight: bold;">
         <marquee>SISTEM PIRAMIDA GUARD AKTIF - BACKUP OTOMATIS SETIAP ADZAN - NUR 08 SIAGA - </marquee>
     </div>
@@ -177,71 +210,12 @@
     </video>
 
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
-</div>
-
-<div style="position: relative; z-index: 1; text-align: center; color: white; padding-top: 20vh;">
-    <h1>INDRAMAYU CLUB</h1>
-    <p>Nur 03: kurnadibewok3311@gmail.com</p>
-    
-    <button onclick="bukaSuara()" style="background: #FFCC00; color: black; border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer;">
-        🔊 AKTIFKAN SUARA MAKRIFAT
-    </button>
-</div>
-
-<div style="position: fixed; bottom: 0; width: 100%; background: yellow; color: black; font-weight: bold; padding: 5px; z-index: 2;">
-    <marquee>ADZAN OTOMATIS & MUSIK LIVE AKTIF - NUR 08 SIAGA - PIRAMIDA GUARD</marquee>
-</div>
-
-<script>
-function bukaSuara() {
-    var v = document.getElementById("videoNur");
-    v.muted = false; // Suara aktif hanya setelah user klik tombol ini
-    v.play();
-}
-</script>
-
-
-</div>
-
-<script>
-function bukaSuara() {
-    var v = document.getElementById("bgVideo");
-    v.muted = false; // Mematikan mute
-    v.play(); // Memastikan tetap putar
-}
-</script>
-
-    
-
-<footer>
-    <marquee>📻 ADZAN OTOMATIS & MUSIK LIBE AKTIF... 🧲 DIAWASI OLEH MENTERI KEUANGAN NUR 3... 🧲 MARI MENJAGA KEJUJURAN MUTLAK...</marquee>
-</footer>
-
-<script>
-function updateTime() {
-    const now = new Date();
-    document.getElementById('currentTime').innerText = now.toLocaleString('id-ID');
-    setTimeout(updateTime, 1000);
-}
-
-function kirimPesan() {
-    const input = document.getElementById('pesan-member');
-    const display = document.getElementById('display-komentar');
-    if(input.value) {
-        const d = document.createElement('div');
-        d.innerHTML = `<span style="color:#00ff00">●</span> ${input.value}`;
-        display.appendChild(d);
-        display.scrollTop = display.scrollHeight;
-        input.value = "";
-    }
-}
-
-function keGameOnline() {
+< function keGameOnline() {
     alert("🚨 AI KESATRIA: Membuka Arena VVIP. Saldo 500 Rupiah Siap?");
     window.location.href = "https://wa.me/6281386517352?text=SAYA%20ADMIN%20MAU%20CEK%20EMULATOR";
 }
 
-function aksesFolder(id) {
+   <function aksesFolder(id) {
     alert("🚨 PIRAMIDA GUARD: Membuka Ruang Admin " + id + " melalui Gudang Indramayu Club.");
     window.open("https://wa.me/6281386517352?text=SAYA%20ADMIN%20MAU%20AKSES%20DATA%20" + id, "_blank");
 }
