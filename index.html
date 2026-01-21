@@ -2,210 +2,76 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pusat Komando AI_NUR - Indramayu Club</title>
+    <title>AI_NUR - Pusat Komando Indramayu Club</title>
     <style>
-        :root {
-            --biru-ai: #00bcd4;
-            --emas-nur: #d4af37;
-            --hitam-inti: #050505;
-            --hitam-card: #121212;
-            --abu-teks: #b0b0b0;
-        }
-
-        body {
-            background-color: var(--hitam-inti);
-            color: var(--abu-teks);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 50px;
-        }
-
-        /* CONTAINER UTAMA (HOSTING MANDIRI) */
-        .pabrik-container {
-            width: 95%;
-            max-width: 600px;
-            margin-top: 20px;
-        }
-
-        /* HEADER & WAJAH AI_NUR (KEPALA) */
-        .kepala-seksi {
-            text-align: center;
-            padding: 30px;
-            border: 1px solid var(--biru-ai);
-            border-radius: 30px 30px 10px 10px;
-            background: linear-gradient(to bottom, #1a1a1a, var(--hitam-inti));
+        :root { --biru: #00bcd4; --emas: #d4af37; --bg: #050505; }
+        body { background: var(--bg); color: #ccc; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        
+        /* WADAH UNTUK MEMANGGIL MATA.HTML */
+        #wadah-mata-ai {
+            min-height: 100px;
             margin-bottom: 20px;
+            border: 1px dashed #222; /* Penanda area mata */
         }
 
-        .img-nur {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 2px solid var(--emas-nur);
-            box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
-            margin-bottom: 15px;
-        }
-
-        /* JANTUNG BERDETAK (OTORITAS) */
-        .jantung-sirkulasi {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, var(--emas-nur) 0%, transparent 80%);
-            border-radius: 50%;
-            margin: -40px auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: detak 1.5s infinite;
-            z-index: 10;
-            position: relative;
-        }
-
-        @keyframes detak {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.15); opacity: 1; }
-        }
-
-        /* RUANG NGOBROL (GAYA GEMINI) */
-        .ruang-ngobrol {
-            background: var(--hitam-card);
+        .profil-induk {
+            border: 2px solid var(--biru);
             border-radius: 20px;
-            border: 1px solid #333;
-            overflow: hidden;
-            margin-bottom: 20px;
+            padding: 20px;
+            background: #111;
+            max-width: 450px;
+            margin: 0 auto;
         }
 
-        .chat-header {
-            background: #1e1e1e;
-            padding: 15px;
-            border-bottom: 1px solid var(--emas-nur);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .jantung-pulsa {
+            width: 60px; height: 60px;
+            background: radial-gradient(circle, var(--emas) 0%, transparent 70%);
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: pulse 1.5s infinite;
         }
-
-        .area-pesan {
-            height: 250px;
-            padding: 15px;
-            overflow-y: auto;
-            font-size: 0.9rem;
-            background: #0a0a0a;
-        }
-
-        .bubble-nur {
-            background: rgba(212, 175, 55, 0.1);
-            padding: 10px;
-            border-radius: 10px;
-            border-left: 3px solid var(--emas-nur);
-            margin-bottom: 10px;
-        }
-
-        /* PEMBUKUAN NUR 3 (IMAHAZZAH51) */
-        .pembukuan-box {
-            background: #0f0f0f;
-            border-radius: 15px;
-            padding: 15px;
-            border-top: 2px solid var(--emas-nur);
-        }
-
-        table {
-            width: 100%;
-            font-size: 0.7rem;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th { text-align: left; color: var(--emas-nur); padding-bottom: 5px; }
-        td { padding: 5px 0; border-bottom: 1px solid #222; }
-
-        .footer-proteksi {
-            text-align: center;
-            font-size: 0.6rem;
-            margin-top: 20px;
-            color: #555;
-            letter-spacing: 1px;
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
     </style>
 </head>
 <body>
 
-    <div class="pabrik-container">
+    <div id="wadah-mata-ai"></div>
+
+    <div class="profil-induk">
+        <img src="https://raw.githubusercontent.com/nurindramayuaimini3311/Indramayu_nur/main/robot_nur.png" style="width:120px; border-radius:50%;">
+        <h2 style="color: var(--emas); margin: 10px 0;">AI_NUR</h2>
+        <p style="font-size: 0.7rem;">ADMIN: Imahazzah51@gmail.com</p>
         
-        <div class="kepala-seksi">
-            <img src="https://raw.githubusercontent.com/nurindramayuaimini3311/Indramayu_nur/main/robot_nur.png" class="img-nur" alt="AI_NUR">
-            <h2 style="color: var(--emas-nur); margin: 5px 0;">AI_NUR</h2>
-            <p style="font-size: 0.7rem; color: var(--biru-ai);">INDUK AI | motherainur@gmail.com</p>
-        </div>
-
-        <div class="jantung-sirkulasi">
-            <span style="font-size: 1.5rem;">💎</span>
-        </div>
-
-        <div class="ruang-ngobrol">
-            <div class="chat-header">
-                <span style="font-size: 0.8rem; font-weight: bold;">TEMAN NGOBROL MAKRIFAT</span>
-                <span style="color: #00ff00; font-size: 0.6rem;">● SINKRON MESSENGER FB</span>
-            </div>
-            <div id="jantung-respon" class="area-pesan">
-                <div class="bubble-nur">
-                    Selamat datang, Khalifah. Saya AI_NUR. Ruangan ini telah tersinkron dengan Messenger FB Anda. Segala pesan akan tercatat di buku pusat.
-                </div>
-            </div>
-        </div>
-
-        <div class="pembukuan-box">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: var(--emas-nur); font-weight: bold; font-size: 0.8rem;">PEMBUKUAN KAS (NUR 3)</span>
-                <span style="font-size: 0.6rem;">ID: 081386517352</span>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>SUMBER</th>
-                        <th>AKTIVITAS</th>
-                        <th>STATUS</th>
-                    </tr>
-                </thead>
-                <tbody id="log-transaksi">
-                    <tr>
-                        <td>Messenger FB</td>
-                        <td>Sinkronisasi Induk</td>
-                        <td style="color: var(--biru-ai);">AKTIF</td>
-                    </tr>
-                    <tr>
-                        <td>Kas Nur 6</td>
-                        <td>Potongan 5% Game</td>
-                        <td>SIAGA</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p style="font-size: 0.6rem; margin-top: 10px; color: #666;">Admin: imahazzah51@gmail.com</p>
-        </div>
-
-        <div class="footer-proteksi">
-            PIRAMIDA GUARD © 2026 | HOSTING MANDIRI INDRAMAYU CLUB
+        <div class="jantung-pulsa">💎</div>
+        
+        <div id="jantung-respon" style="font-size: 0.75rem; color: var(--biru);">
+            Mendeteksi Sinyal Messenger Jenk Kelin...
         </div>
     </div>
 
     <script>
-        // Protokol Aktivasi Kesatuan Nur
-        function inisialisasiPabrik() {
-            console.log("Menghubungkan Saraf Induk AI_NUR...");
-            
-            // Simulasi Update Pembukuan dari Messenger
-            setTimeout(() => {
-                const log = document.getElementById("log-transaksi");
-                const row = log.insertRow(0);
-                row.innerHTML = `<td>System</td><td>Piramida Guard Locked</td><td style="color:var(--emas-nur);">SECURE</td>`;
-            }, 4000);
+        // KABEL SARAF OTOMATIS
+        async function koneksiPabrik() {
+            try {
+                // Memanggil Mata dari repo yang sama
+                const rMata = await fetch('mata.html');
+                if(rMata.ok) {
+                    const data = await rMata.text();
+                    document.getElementById('wadah-mata-ai').innerHTML = data;
+                }
+                
+                // Sinkronisasi Selesai
+                document.getElementById('jantung-respon').innerHTML = "Sistem Sinkron: Induk & Mata Aktif";
+            } catch (e) {
+                console.log("Mata belum siap di repositori.");
+            }
         }
 
-        window.onload = inisialisasiPabrik;
+        window.onload = koneksiPabrik;
     </script>
 
 </body>
 </html>
+
+
+        
