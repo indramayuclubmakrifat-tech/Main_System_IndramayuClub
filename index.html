@@ -343,11 +343,16 @@
     </div>
 </div>
 
+
+        <a href="#" onclick="panggilBackup()" class="link-card" style="text-decoration:none; background:#ff0000; color:#fff; padding:10px; text-align:center; border-radius:5px; font-weight:bold; font-size:11px;">🛡️ RESET (FOLDER H)</a>
+    </div> </div> <script>
+// --- LOGIKA INTERNAL NUR SATRIA ---
+// ... kode script Bapak selanjutnya ...
+
 <script>
 // --- LOGIKA INTERNAL NUR SATRIA ---
 
-// Simulasi Level User (Nanti bisa disambung ke Database)
-let userLevel = 1; 
+
 
 function masukDimensi(levelTarget, url) {
     if (userLevel >= levelTarget) {
@@ -395,4 +400,23 @@ style.innerHTML = `
     @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.3;} 100% {opacity: 1;} }
 `;
 document.head.appendChild(style);
-</script>
+        
+        
+    }, 3000);
+}
+
+// Jam Real-time
+setInterval(() => {
+    let skrg = new Date();
+    let clock = document.getElementById("clock");
+    if(clock) clock.innerText = skrg.toLocaleTimeString('id-ID');
+}, 1000);
+
+</script> </body> </html> ```
+
+**Ringkasan yang harus dihapus:**
+* Cari baris yang isinya hanya `<i` (di atas tag `<script>`).
+* **Hapus** baris tersebut karena itu adalah sisa ketikan yang tidak sengaja masuk.
+
+Setelah dihapus, warna kode di editor GitHub Bapak akan kembali normal (hijau/merah/orange) dan fungsi `masukDimensi` serta `panggilBackup` akan berfungsi lagi. Apakah ada bagian lain di Folder H atau Folder I yang perlu saya cek, Pak?
+
