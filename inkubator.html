@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Inkubator - Indramayu Club</title>
+    <style>
+        body { background: #0b0b0b; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
+        #dimensi-inkubator-nur { transition: opacity 2s, filter 2s; min-height: 80vh; }
+        .card-container { width: 200px; height: 280px; margin: 20px auto; cursor: pointer; perspective: 1000px; }
+        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; border: 1px solid gold; border-radius: 15px; }
+        .card-container:hover .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 15px; background: #1a1a1a; }
+        .card-back { transform: rotateY(180deg); color: gold; padding: 10px; box-sizing: border-box; }
+        .lvl-hard { color: red; font-weight: bold; font-size: 12px; }
+        #display-komentar { border: 1px solid #333; height: 100px; overflow-y: auto; background: #000; margin-top: 20px; padding: 10px; font-size: 12px; text-align: left; }
+        .running-text { color: yellow; font-weight: bold; background: black; padding: 5px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul style="list-style: none; display: flex; justify-content: center; gap: 15px; padding: 0;">
+            <li><a href="index.html" style="color: cyan;">🏠 Home</a></li>
+            <li><a href="02_Emulator.html" style="color: cyan;">🕹️ Emulator</a></li>
+            <li><a href="04.arisan.html" style="color: cyan;">💰 Arisan</a></li>
+        </ul>
+    </nav>
+
+    <div id="dimensi-inkubator-nur">
+        <h2>🌀 Dimensi Inkubator</h2>
+        
+        <div id="status-sistem"></div>
+
+        <div class="card-container" onclick="hitungPotonganKas()">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="level-badge lvl-hard">LVL 3: HARD</div>
+                    <div style="font-size: 50px;">🏦</div>
+                    <div class="role">BANK PUSAT</div>
+                </div>
+                <div class="card-back">
+                    <div class="username">Nur 6 (Admin Kas)</div>
+                    <hr width="80%">
+                    <div class="desc">Klik untuk Setor:<br>Automasi Potong 5%</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="display-komentar">
+            <div style="color: gray;">-- Menunggu pesan dari Dimensi Depan --</div>
+        </div>
+    </div>
+
+    <script>
+        // Perbaikan Logika Nur 6: Kalkulasi Kas
+        function hitungPotonganKas() {
+            let jumlah = prompt("Masukkan nominal transaksi untuk Bank Pusat (IDR):");
+            if (jumlah && !isNaN(jumlah)) {
+                let potong = jumlah * 0.05; // Pajak Sakral 5%
+                let sisa = jumlah - potong;
+                alert("📂 LAPORAN NUR 6:\n----------------------\nTotal Input: Rp " + parseInt(jumlah).toLocaleString() + 
+                      "\nPotongan Kas (5%): Rp " + potong.toLocaleString() + 
+                      "\nMasuk Saldo Bank: Rp " + sisa.toLocaleString());
+            } else if (jumlah) {
+                alert("Gunakan angka saja, Pak!");
+            }
+        }
+
+        // Jalur Komunikasi localStorage (Pesan dari Depan)
+        setInterval(() => {
+            const pesanMasuk = localStorage.getItem('pesanDimensiDepan');
+            if (pesanMasuk) {
+                const display = document.getElementById('display-komentar');
+                const chatBaru = document.createElement('div');
+                chatBaru.innerHTML = `<span style="color:cyan">🌀 [Kawat]:</span> ${pesanMasuk}`;
+                display.appendChild(chatBaru);
+                display.scrollTop = display.scrollHeight;
+                localStorage.removeItem('pesanDimensiDepan');
+            }
+        }, 1000);
+
+        // Perbaikan Logika Nur 8: Proteksi Waktu Adzan & Redup Layar
+        function proteksiSistem() {
+            const sekarang = new Date();
+            const jam = sekarang.getHours();
+            const menit = sekarang.getMinutes();
+            const container = document.getElementById('dimensi-inkubator-nur');
+            const statusBox = document.getElementById('status-sistem');
+
+            // Contoh: Redupkan pada jam 12 (Dzuhur), 15 (Ashar), 18 (Maghrib), 19 (Isya
+
