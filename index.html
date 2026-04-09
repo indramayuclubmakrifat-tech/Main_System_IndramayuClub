@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndramayuCLUB - Piramida Guard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f3f4f6; /* Abu sangat muda */
+        }
+
+        .purple-gradient {
+            background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(109, 40, 217, 0.1);
+        }
+
+        .marquee-container {
+            background: #ffffff;
+            border-top: 2px solid #6d28d9;
+            border-bottom: 2px solid #6d28d9;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { background-color: #ef4444; }
+            50% { background-color: #b91c1c; }
+        }
+        .warning-alert {
+            animation: pulse-red 2s infinite;
+        }
+    </style>
+</head>
+<body class="p-0 m-0">
+
+    <header class="purple-gradient text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="max-w-md mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-white p-1 rounded-lg">
+                    <span class="text-purple-700 font-extrabold text-xl">IC</span>
+                </div>
+                <h1 class="font-extrabold tracking-tighter text-lg">Indramayu<span class="text-purple-200">CLUB</span></h1>
+            </div>
+            <div id="clock" class="text-sm font-mono bg-purple-900/50 px-3 py-1 rounded-full">00:00:00</div>
+        </div>
+    </header>
+
+    <div class="marquee-container overflow-hidden py-1">
+        <marquee class="text-purple-800 font-bold text-xs uppercase tracking-widest">
+            ✨ Selamat Datang di Gerbang Dimensi Makrifat ✨ Nur 8: Menunggu Waktu Adzan untuk Reset Data Otomatis ✨ Gunakan Kitab Nur Cahaya dengan Bijak ✨
+        </marquee>
+    </div>
+
+    <main class="max-w-md mx-auto p-4 space-y-4">
+
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+            <img src="https://uploads.onecompiler.io/448r2umqe/44aq6y4je/1000023476.jpg" class="w-full h-48 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent"></div>
+            <div class="absolute top-3 left-3 bg-white/20 backdrop-blur-md px-2 py-1 rounded text-[10px] text-white border border-white/30">
+                PIRAMIDA THE GUARD
+            </div>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+                <p class="text-[10px] opacity-80 uppercase tracking-widest">Penjaga Gerbang</p>
+                <h2 class="text-lg font-bold leading-tight">Membuka Rahasia Inti Nur Cahaya</h2>
+            </div>
+        </div>
+
+        <div class="warning-alert text-white p-3 rounded-xl flex items-center gap-3 shadow-md">
+            <span class="text-xl">⚠️</span>
+            <div class="text-xs">
+                <p class="font-bold">PERINGATAN SISTEM:</p>
+                <p id="bencana-text">Sistem mendeteksi getaran dimensi. Harap backup data folder H segera.</p>
+            </div>
+        </div>
+
+        <section class="space-y-3">
+            <h3 class="text-purple-900 font-extrabold text-sm border-l-4 border-purple-600 pl-2 uppercase">Gerbang Dimensi 10 Folder</h3>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <a href="https://ai.studio/apps/379f5974-54d2-4922-9a65-4ee51bacf7fa" class="glass-card p-4 rounded-xl shadow-sm hover:shadow-md transition block text-center">
+                    <span class="text-2xl block mb-1">📁</span>
+                    <span class="text-purple-700 font-bold text-xs block">Nur 3</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Admin Komentar</span>
+                </a>
+
+                <a href="https://ai.studio/apps/cbafa9ed-972c-44eb-8adf-ebc7759579f2" class="glass-card p-4 rounded-xl shadow-sm hover:shadow-md transition block text-center text-decoration-none">
+                    <span class="text-2xl block mb-1">🎨</span>
+                    <span class="text-purple-700 font-bold text-xs block">Nur 4</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Studio Kreator</span>
+                </a>
+
+                <a href="https://ai.studio/apps/61b74539-37e7-414a-b134-c2fe33764cd8" class="glass-card p-4 rounded-xl shadow-sm hover:shadow-md transition block text-center">
+                    <span class="text-2xl block mb-1">📱</span>
+                    <span class="text-purple-700 font-bold text-xs block">Nur 7</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Media Sosial</span>
+                </a>
+
+                <a href="https://ais-dev-fkifeuqbupkf2kloldq4uv-612359027571.asia-east1.run.app" class="glass-card p-4 rounded-xl shadow-sm hover:shadow-md transition block text-center">
+                    <span class="text-2xl block mb-1">🎲</span>
+                    <span class="text-purple-700 font-bold text-xs block">Nur 8</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Game & Arisan</span>
+                </a>
+
+                <a href="https://ai.studio/apps/03003f47-194f-4511-8c65-2e17c2c0f465" class="glass-card p-4 rounded-xl shadow-sm hover:shadow-md transition block text-center">
+                    <span class="text-2xl block mb-1">💎</span>
+                    <span class="text-purple-700 font-bold text-xs block">Nur 9</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Penjaga Kitab</span>
+                </a>
+
+                <a href="https://ai.studio/apps/fea67ee7-2e48-4dc7-9926-d9646b184ee9" class="glass-card p-4 rounded-xl shadow-sm hover:shadow-md transition block text-center border-2 border-purple-200">
+                    <span class="text-2xl block mb-1">🛡️</span>
+                    <span class="text-purple-700 font-bold text-xs block text-decoration-none">Nur 10</span>
+                    <span class="text-[9px] text-gray-500 uppercase">Piramida Guard</span>
+                </a>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-2 gap-2 mt-6">
+            <button onclick="panggilBackup()" class="bg-purple-100 text-purple-700 p-3 rounded-xl font-bold text-xs border border-purple-200">
+                🔄 SYNC FOLDER
+            </button>
+            <button onclick="panggilBackup()" class="bg-red-600 text-white p-3 rounded-xl font-bold text-xs shadow-lg">
+                🛡️ RESET SYSTEM
+            </button>
+        </div>
+
+        <footer class="text-center py-10 opacity-40">
+            <p class="text-[10px] text-gray-600">IndramayuCLUB Makrifat © 2026<br>Powered by Piramida Guard Logic</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Clock Real-time
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('id-ID', { hour12: false });
+            document.getElementById('clock').innerText = timeStr;
+            
+            // Contoh Peringatan Adzan Sederhana (Nur 8)
+            // Bisa Bapak sesuaikan dengan jadwal adzan lokal
+            if(timeStr.includes("12:00") || timeStr.includes("15:30") || timeStr.includes("18:00")) {
+                document.getElementById('bencana-text').innerText = "WAKTU ADZAN: Nur 8 sedang mempersiapkan backup suci.";
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function panggilBackup() {
+            const confirmAction = confirm("Nur 8: Apakah Anda yakin ingin melakukan sinkronisasi Piramida Guard?");
+            if(confirmAction) {
+                alert("Sinkronisasi Berhasil. Folder H telah aman.");
+            }
+        }
+    </script>
+</body>
+</html>
