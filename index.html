@@ -29,6 +29,30 @@
             border-bottom: 2px solid #6d28d9;
         }
 
+        /* Tambahkan ini untuk mengaktifkan scroll pada grid */
+.grid-system {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    
+    /* Inti dari scroll: */
+    max-height: 500px; /* Atur tinggi maksimal sesuai kebutuhan */
+    overflow-y: auto;  /* Munculkan scrollbar vertikal jika konten melebihi max-height */
+    padding: 10px;
+    scroll-behavior: smooth;
+}
+
+/* Opsional: Mempercantik tampilan scrollbar agar selaras dengan tema Glass-Card */
+.grid-system::-webkit-scrollbar {
+    width: 6px;
+}
+
+.grid-system::-webkit-scrollbar-thumb {
+    background: #6d28d9; /* Warna ungu sesuai tema .purple-gradient */
+    border-radius: 10px;
+}
+
+
         @keyframes pulse-red {
             0%, 100% { background-color: #ef4444; }
             50% { background-color: #b91c1c; }
@@ -183,6 +207,8 @@
 </span>
 </a>
 
+
+            
                 <a href="https://m.me/1695736304917775?is_ai=1" class="glass-card p-4 rounded-xl shadow-sm hover:shadow-md transition block text-center">
                  <img src=https://github.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/blob/main/Ai_kreatif.jpeg
                   <span class="text-purple-700 font-bold text-x">AI GAME</span>
