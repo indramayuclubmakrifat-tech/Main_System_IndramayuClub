@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indramayu Club - Server Emblem & Media Sosial</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1a3a2a 0%, #0d1a12 100%); color: #fff; min-height: 100vh; }
+
+/* HEADER EMBLEM */
+.header-emblem {
+  background: linear-gradient(135deg, #1a3a2a, #0d1a12);
+  border-bottom: 3px solid #C9A84C;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.2);
+}
+.emblem-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.emblem-title {
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #C9A84C;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+.emblem-subtitle {
+  font-size: 14px;
+  color: rgba(201, 168, 76, 0.8);
+  font-style: italic;
+}
+
+/* POPUP CONTAINER */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-box {
+  background: linear-gradient(135deg, #1a3a2a, #0d2010);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  border: 2px solid #C9A84C;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.4s ease-out;
+}
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.popup-header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #C9A84C;
+  padding-bottom: 15px;
+}
+.popup-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.popup-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  color: #C9A84C;
+  margin-bottom: 5px;
+}
+.popup-desc {
+  font-size: 12px;
+  color: rgba(201, 168, 76, 0.7);
+}
+
+/* LOGIN FORM */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-label {
+  font-size: 12px;
+  color: rgba(201, 168, 76, 0.9);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.form-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #C9A84C;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.3s;
+}
+.form-input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px rgba(201, 168, 76, 0.3);
+}
+.form-input::placeholder { color: rgba(201, 168, 76, 0.5); }
+
+.btn-login {
+  background: linear-gradient(135deg, #C9A84C, #E8C97A);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+.btn-login:active { transform: translateY(0); }
+
+.btn-secondary {
+  background: transparent;
+  color: #C9A84C;
+  border: 1px solid #C9A84C;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s;
+}
+.btn-secondary:hover {
+  background: rgba(201, 168, 76, 0.1);
+}
+
+/* MEMBER SEARCH */
+.search-container {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(201, 168, 76, 0.3);
+}
+.search-label {
+  font-size: 12px;
+  color: #C9A84C;
+  margin-bottom: 10px;
+  display: block;
+  font-weight: 600;
+}
+.search-input-group {
+  display: flex;
+  gap: 8px;
+}
+.search-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #C9A84C;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 12px;
+  outline: none;
+}
+.search-input::placeholder { color: rgba(201, 168, 76, 0.5); }
+.btn-search {
+  background: #C9A84C;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.member-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 10px;
+}
+.member-item {
+  padding: 8px;
+  margin-bottom: 6px;
+  background: rgba(201, 168, 76, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 12px;
+  border-left: 3px solid #C9A84C;
+}
+.member-item:hover {
+  background: rgba(201, 168, 76, 0.2);
+  transform: translateX(5px);
+}
+.member-status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: #31a24c;
+}
+.member-status.offline { background: #999; }
+
+/* MAIN CONTENT */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.grid-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.card {
+  background: linear-gradient(135deg, rgba(26, 107, 58, 0.3), rgba(13, 26, 18, 0.3));
+  border: 1px solid #C9A84C;
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: #C9A84C;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-content {
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* AUTO-DELETE TIMER */
+.auto-delete-info {
+  background: rgba(255, 152, 0, 0.2);
+  border-left: 3px solid #FF9800;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-top: 15px;
+}
+.auto-delete-info strong { color: #FFB74D; }
+
+/* AUTO-COPY NOTIFICATION */
+.copy-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #31a24c;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 12px;
+  animation: slideInRight 0.3s ease-out;
+  z-index: 999;
+}
+@keyframes slideInRight {
+  from { transform: translateX(400px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ACTIVE MEMBERS LIST */
+.active-members {
+  max-height: 300px;
+  overflow-y: auto;
+}
+.member-badge {
+  display: inline-block;
+  background: rgba(49, 162, 76, 0.3);
+  border: 1px solid #31a24c;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+/* SOCIAL MEDIA POSTS */
+.post-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.post-author {
+  color: #C9A84C;
+  font-weight: 600;
+}
+.post-time {
+  color: rgba(201, 168, 76, 0.6);
+  font-size: 11px;
+}
+.post-timer {
+  color: #FF9800;
+  font-weight: 600;
+  font-size: 10px;
+}
+.post-content {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .grid-content { grid-template-columns: 1fr; }
+  .popup-box { padding: 20px; }
+  .emblem-title { font-size: 22px; }
+}
+
+/* SCROLLBAR STYLE */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(201, 168, 76, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A84C;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E8C97A;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER EMBLEM -->
+<div class="header-emblem">
+  <div class="emblem-icon">ꦆ</div>
+  <div class="emblem-title">INDRAMAYU CLUB</div>
+  <div class="emblem-subtitle">Pusat Komando · Makrifat Intelligence Platform</div>
+</div>
+
+<!-- LOGIN POPUP -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box">
+    <div class="popup-header">
+      <div class="popup-icon">🔐</div>
+      <div class="popup-title">Member Login</div>
+      <div class="popup-desc">Server Emblem Indramayu Club</div>
+    </div>
+
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">📱 Nomor WhatsApp</label>
+        <input class="form-input" type="tel" id="phoneInput" placeholder="62812345678" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">🔑 PIN Rahasia</label>
+        <input class="form-input" type="password" id="pinInput" placeholder="••••" required>
+      </div>
+
+      <button type="submit" class="btn-login">✓ LOGIN SEKARANG</button>
+    </form>
+
+    <!-- PENCARIAN MEMBER AKTIF -->
+    <div class="search-container">
+      <label class="search-label">🔍 CARI MEMBER AKTIF</label>
+      <div class="search-input-group">
+        <input class="search-input" type="text" id="memberSearch" placeholder="Nama atau username...">
+        <button class="btn-search" onclick="searchMembers()">CARI</button>
+      </div>
+
+      <div class="member-list" id="memberList" style="display: none;">
+        <!-- Member results will appear here -->
+      </div>
+    </div>
+
+    <!-- COPY OTP OTOMATIS -->
+    <button type="button" class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="showOtpModal()">
+      📋 DAPATKAN OTP via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT (Hidden until login) -->
+<div class="container" id="mainContent" style="display: none;">
+
+  <div class="grid-content">
+
+    <!-- CARD 1: SOCIAL MEDIA AUTO-DELETE -->
+    <div class="card">
+      <div class="card-title">
+        📱 Media Sosial Otomatis
+      </div>
+      <div class="card-content">
+        Semua postingan member akan hilang otomatis setelah <strong>7 hari</strong> dari waktu posting. 
+        Sistem ini menjaga privasi dan keamanan data komunitas.
+      </div>
+      <div class="auto-delete-info">
+        <strong>⏰ Timer Otomatis:</strong> Post dibuat → +7 hari → Terhapus Otomatis
+      </div>
+    </div>
+
+    <!-- CARD 2: AUTO-COPY LOGIN -->
+    <div class="card">
+      <div class="card-title">
+        📋 Salinan Otomatis
+      </div>
+      <div class="card-content">
+        Ketika member login, kredensial login akan disalin otomatis ke clipboard untuk kemudahan akses 
+        ke portal Nur AI dan layanan lainnya.
+      </div>
+      <div class="auto-delete-info" style="border-left-color: #4CAF50; background: rgba(76, 175, 80, 0.2);">
+        <strong style="color: #81C784;">✓ Auto-Copy Aktif:</strong> Login otomatis disimpan
+      </div>
+    </div>
+
+    <!-- CARD 3: MEMBER AKTIF REAL-TIME -->
+    <div class="card">
+      <div class="card-title">
+        👥 Member Aktif Sekarang
+      </div>
+      <div class="active-members" id="activeMembersList">
+        <div class="member-badge">
+          <span class="member-status"></span>
+          Ahmad Fauzi <strong>[SILVER]</strong>
+        </div>
+        <div class="member-badge">
+          <span class="member-status"></span>
+          Siti Nurhaliza <strong>[GOLD]</strong>
+        </div>
+        <div class="member-badge">
+          <span class="member-status"></span>
+          Rahmat Hidayat <strong>[SILVER]</strong>
+        </div>
+        <div class="member-badge">
+          <span class="member-status"></span>
+          Dewi Safitri <strong>[PLATINUM]</strong>
+        </div>
+        <div class="member-badge">
+          <span class="member-status"></span>
+          Muhamad Ali <strong>[BRONZE]</strong>
+        </div>
+        <p style="font-size: 12px; color: rgba(201, 168, 76, 0.6); margin-top: 10px;">
+          📊 Total: <strong id="activeMemberCount">5 / 248</strong> member aktif
+        </p>
+      </div>
+    </div>
+
+    <!-- CARD 4: POSTS AUTO-DELETE EXAMPLE -->
+    <div class="card">
+      <div class="card-title">
+        📄 Contoh Post dengan Timer
+      </div>
+      <div id="postsList">
+        <div class="post-item">
+          <div class="post-header">
+            <span class="post-author">Ahmad Fauzi</span>
+            <span class="post-time">2 jam lalu</span>
+          </div>
+          <div class="post-content">
+            Alhamdulillah, sistem Nur AI sedang berkembang dengan baik! 🚀
+          </div>
+          <div class="post-timer" id="post1-timer">⏰ Hilang dalam 6 hari 22 jam</div>
+        </div>
+
+        <div class="post-item">
+          <div class="post-header">
+            <span class="post-author">Siti Nurhaliza</span>
+            <span class="post-time">4 jam lalu</span>
+          </div>
+          <div class="post-content">
+            Terima kasih Pak Jamhari atas kepercayaan untuk bergabung di Indramayu Club 🙏
+          </div>
+          <div class="post-timer" id="post2-timer">⏰ Hilang dalam 6 hari 20 jam</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- OTP MODAL -->
+<div class="popup-overlay" id="otpModal" style="display: none;">
+  <div class="popup-box">
+    <div class="popup-header">
+      <div class="popup-icon">📱</div>
+      <div class="popup-title">OTP via WhatsApp</div>
+      <div class="popup-desc">Kode OTP akan dikirim ke nomor Anda</div>
+    </div>
+
+    <div style="text-align: center;">
+      <p style="color: #C9A84C; font-size: 13px; margin-bottom: 15px;">
+        Nomor: <strong id="displayPhone">-</strong>
+      </p>
+
+      <div style="background: rgba(201, 168, 76, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+        <div id="otpCode" style="font-family: monospace; font-size: 24px; font-weight: 700; color: #FFB74D; letter-spacing: 5px; margin-bottom: 10px;">
+          123456
+        </div>
+        <div style="font-size: 11px; color: rgba(201, 168, 76, 0.7);">
+          Klik tombol di bawah untuk menyalin
+        </div>
+      </div>
+
+      <button class="btn-login" style="width: 100%; margin-bottom: 10px;" onclick="copyOtp()">
+        📋 COPY OTP
+      </button>
+      <button class="btn-secondary" style="width: 100%; margin-bottom: 10px;" onclick="openWhatsApp()">
+        💬 BUKA WHATSAPP
+      </button>
+      <button class="btn-secondary" style="width: 100%;" onclick="closeOtpModal()">
+        ✕ TUTUP
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// AUTO-DELETE TIMER COUNTDOWN
+function updateTimers() {
+  const posts = [
+    { id: 'post1-timer', createdHours: 2 },
+    { id: 'post2-timer', createdHours: 4 }
+  ];
+
+  posts.forEach(post => {
+    const element = document.getElementById(post.id);
+    const remainingHours = 7 * 24 - post.createdHours;
+    const days = Math.floor(remainingHours / 24);
+    const hours = remainingHours % 24;
+    
+    element.textContent = `⏰ Hilang dalam ${days} hari ${hours} jam`;
+  });
+}
+
+// UPDATE EVERY MINUTE
+setInterval(updateTimers, 60000);
+updateTimers();
+
+// MEMBER SEARCH
+const activeMembersDb = [
+  { name: 'Ahmad Fauzi', username: '@ahmad_fz', status: 'online', tier: 'SILVER' },
+  { name: 'Siti Nurhaliza', username: '@siti.nur', status: 'online', tier: 'GOLD' },
+  { name: 'Rahmat Hidayat', username: '@rahmat.h', status: 'online', tier: 'SILVER' },
+  { name: 'Dewi Safitri', username: '@dewi_saf', status: 'online', tier: 'PLATINUM' },
+  { name: 'Muhamad Ali', username: '@m.ali', status: 'online', tier: 'BRONZE' },
+  { name: 'Budi Santoso', username: '@budi_snt', status: 'offline', tier: 'SILVER' },
+  { name: 'Eka Putri', username: '@eka.p', status: 'offline', tier: 'GOLD' },
+];
+
+function searchMembers() {
+  const query = document.getElementById('memberSearch').value.toLowerCase().trim();
+  const memberList = document.getElementById('memberList');
+
+  if (!query) {
+    memberList.style.display = 'none';
+    return;
+  }
+
+  const results = activeMembersDb.filter(m => 
+    m.name.toLowerCase().includes(query) || 
+    m.username.toLowerCase().includes(query)
+  );
+
+  if (results.length > 0) {
+    memberList.innerHTML = results.map(m => `
+      <div class="member-item" onclick="selectMember('${m.name}', '${m.username}')">
+        <span class="member-status ${m.status === 'offline' ? 'offline' : ''}"></span>
+        <strong>${m.name}</strong> ${m.username} 
+        <span style="color: #C9A84C;">[${m.tier}]</span>
+      </div>
+    `).join('');
+    memberList.style.display = 'block';
+  } else {
+    memberList.innerHTML = '<div style="padding: 10px; text-align: center; color: #FF9800;">Tidak ada member ditemukan</div>';
+    memberList.style.display = 'block';
+  }
+}
+
+function selectMember(name, username) {
+  console.log('Selected:', name, username);
+  document.getElementById('memberSearch').value = name;
+  document.getElementById('memberList').style.display = 'none';
+}
+
+// LOGIN HANDLER
+function handleLogin(event) {
+  event.preventDefault();
+  const phone = document.getElementById('phoneInput').value;
+  const pin = document.getElementById('pinInput').value;
+
+  // VALIDATE
+  if (phone.length < 10 || pin.length < 4) {
+    alert('❌ Nomor atau PIN tidak valid');
+    return;
+  }
+
+  // SAVE TO LOCALSTORAGE (Auto-copy when login)
+  const loginData = `Phone: ${phone}\nPIN: ${pin}\nTime: ${new Date().toLocaleString('id-ID')}`;
+  localStorage.setItem('lastLogin', loginData);
+
+  // COPY TO CLIPBOARD
+  navigator.clipboard.writeText(loginData).then(() => {
+    showNotification('✓ Login data disalin ke clipboard!');
+  });
+
+  // SHOW SUCCESS & HIDE POPUP
+  alert(`✓ Selamat datang!\n\nNomor: ${phone}\nData login otomatis disalin.`);
+  
+  // HIDE POPUP & SHOW MAIN CONTENT
+  document.getElementById('popupOverlay').style.display = 'none';
+  document.getElementById('mainContent').style.display = 'block';
+
+  // UPDATE MEMBER COUNT
+  updateActiveMembers();
+}
+
+function updateActiveMembers() {
+  const activeCount = activeMembersDb.filter(m => m.status === 'online').length;
+  document.getElementById('activeMemberCount').textContent = `${activeCount} / 248`;
+}
+
+function showOtpModal() {
+  const phone = document.getElementById('phoneInput').value;
+  if (!phone) {
+    alert('Masukkan nomor WhatsApp terlebih dahulu');
+    return;
+  }
+
+  const otp = Math.floor(Math.random() * 900000) + 100000;
+  document.getElementById('otpCode').textContent = otp.toString().split('').join(' ');
+  document.getElementById('displayPhone').textContent = phone;
+  document.getElementById('otpModal').style.display = 'flex';
+}
+
+function closeOtpModal() {
+  document.getElementById('otpModal').style.display = 'none';
+}
+
+function copyOtp() {
+  const otpText = document.getElementById('otpCode').textContent.replace(/\s/g, '');
+  navigator.clipboard.writeText(otpText).then(() => {
+    showNotification('✓ OTP disalin ke clipboard!');
+  });
+}
+
+function openWhatsApp() {
+  const phone = document.getElementById('phoneInput').value;
+  const otp = document.getElementById('otpCode').textContent.replace(/\s/g, '');
+  const message = `Kode OTP saya: ${otp}`;
+  const waLink = `https://wa.me/62${phone.slice(1)}?text=${encodeURIComponent(message)}`;
+  window.open(waLink, '_blank');
+}
+
+function showNotification(message) {
+  const notif = document.createElement('div');
+  notif.className = 'copy-notification';
+  notif.textContent = message;
+  document.body.appendChild(notif);
+
+  setTimeout(() => notif.remove(), 3000);
+}
+
+// AUTO-HIDE POPUP JIKA SUDAH LOGIN
+window.addEventListener('load', () => {
+  const lastLogin = localStorage.getItem('lastLogin');
+  if (lastLogin) {
+    // User sudah login sebelumnya
+    const confirm_auto = confirm('Lanjutkan dengan login sebelumnya?');
+    if (confirm_auto) {
+      document.getElementById('popupOverlay').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      updateActiveMembers();
+    }
+  }
+});
+
+// REALTIME MEMBER UPDATE
+setInterval(() => {
+  const randomMember = activeMembersDb[Math.floor(Math.random() * activeMembersDb.length)];
+  if (Math.random() > 0.7) {
+    randomMember.status = randomMember.status === 'online' ? 'offline' : 'online';
+  }
+  updateActiveMembers();
+}, 30000);
+</script>
+
+</body>
+</html>
