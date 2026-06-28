@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Indramayu Club Makrifat Portal v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&family=Noto+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================
+     GLOBAL & PHONE UTILITY FRAME
+     ========================================== */
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0A0A0A;
+    color: #e8d5a0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Kontainer Utama Penampung Semua Halaman */
+  .page-container {
+    display: none;
+    width: 100%;
+    max-width: 412px;
+    height: 844px;
+    margin: 20px auto;
+    position: relative;
+    background: #0D0D0D;
+    border-radius: 40px;
+    border: 8px solid #1a1a1a;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+    overflow: hidden;
+  }
+  .page-container.active-page { display: block; }
+
+  /* ==========================================
+     HALAMAN 1: ANDROID HOME SCREEN
+     ========================================== */
+  .wallpaper {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 20%, rgba(30,15,60,0.95) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(10,30,20,0.9) 0%, transparent 60%),
+      linear-gradient(160deg, #0D0820 0%, #050D10 40%, #0A1205 100%);
+    z-index: 0;
+  }
+  .wallpaper::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(201,168,76,0.025) 0, rgba(201,168,76,0.025) 1px, transparent 1px, transparent 18px),
+      repeating-linear-gradient(-45deg, rgba(201,168,76,0.025) 0, rgba(201,168,76,0.025) 1px, transparent 1px, transparent 18px);
+  }
+  .android-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+  
+  .statusbar {
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 12px 22px 6px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.85);
+  }
+  .clock-widget { text-align:center; padding: 15px 0 5px; }
+  .clock-time { font-size: 50px; font-weight:200; color:#fff; letter-spacing:-2px; line-height:1; text-shadow: 0 0 40px rgba(201,168,76,0.3); }
+  .clock-date { font-size:12px; color:rgba(255,255,255,0.6); margin-top:4px; }
+
+  /* Google Search Box - Fungsional */
+  .search-container { margin: 10px 20px 6px; }
+  .search-bar-form {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 28px; padding: 2px 14px; display:flex; align-items:center; gap:10px; backdrop-filter:blur(10px);
+  }
+  .search-g { font-size:16px; font-weight:700; background:linear-gradient(135deg,#4285F4,#EA4335,#FBBC05,#34A853); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .search-input { flex:1; background:transparent; border:none; color:#fff; font-size:13px; padding:8px 0; outline:none; }
+  .search-input::placeholder { color:rgba(255,255,255,0.4); }
+  .search-btn-submit { background:transparent; border:none; color:#fff; cursor:pointer; font-size:14px; }
+
+  .scroll-area { height: 510px; overflow-y: auto; padding-bottom: 80px; scrollbar-width: none; }
+  .scroll-area::-webkit-scrollbar { display:none; }
+  .section-label { font-size: 10px; font-weight:600; letter-spacing:0.12em; color: rgba(255,255,255,0.4); text-transform: uppercase; padding: 12px 20px 4px; }
+  .app-grid { display:grid; grid-template-columns: repeat(4,1fr); gap: 16px 8px; padding: 4px 16px 12px; }
+  .app-item { display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; }
+  .app-icon { width: 52px; height: 52px; border-radius: 14px; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 16px rgba(0,0,0,0.4); position:relative; }
+  .app-icon svg, .app-icon span { width:28px; height:28px; display:flex; align-items:center; justify-content:center; }
+  .app-name { font-size:10px; color:rgba(255,255,255,0.85); text-align:center; text-shadow:0 1px 4px rgba(0,0,0,0.8); max-width:64px; white-space: nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .badge { position:absolute; top:-4px; right:-4px; background:#FF3B30; color:#fff; font-size:9px; font-weight:700; min-width:16px; height:16px; border-radius:8px; display:flex; align-items:center; justify-content:center; padding: 0 3px; border:1.5px solid #0A0A0A; }
+  
+  /* Icon Themes */
+  .ic-fb { background: linear-gradient(145deg,#1877F2,#0C5DC7); }
+  .ic-wa { background: linear-gradient(145deg,#25D366,#128C7E); }
+  .ic-tt { background: #010101; border:0.5px solid rgba(255,255,255,0.15); }
+  .ic-yt { background: linear-gradient(145deg,#FF0000,#C00000); }
+  .ic-gdrive { background: #fff; }
+  .ic-chess { background: linear-gradient(145deg,#769656,#4a6741); }
+  .ic-game { background: linear-gradient(145deg,#FF6B35,#E84393); }
+  .ic-coc { background: linear-gradient(145deg,#1A2B6D,#5B3FA0); }
+  .ic-android { background: linear-gradient(145deg,#3DDC84,#1ea85e); }
+  .ic-claude { background: linear-gradient(145deg,#D97757,#b85c3a); }
+  .ic-indclub { background: linear-gradient(145deg,#0D1A12,#1C3D20); border:1px solid rgba(201,168,76,0.5); }
+  .ic-grey { background: rgba(255,255,255,0.08); }
+  
+  .folder-box { width:52px; height:52px; border-radius:14px; background:rgba(255,255,255,0.12); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.2); display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:2px; padding:5px; }
+  .folder-mini { border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:9px; }
+
+  .dock { position:absolute; bottom:0; left:0; right:0; background: transparent; }
+  .dock-bar { margin: 0 16px 16px; background: rgba(255,255,255,0.1); backdrop-filter:blur(30px); border:1px solid rgba(255,255,255,0.15); border-radius:24px; padding: 8px 12px; display:flex; justify-content:space-around; align-items:center; }
+  .dock-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; }
+  .home-indicator { display:flex; justify-content:center; padding-bottom:4px; }
+  .home-bar { width:110px; height:4px; border-radius:2px; background:rgba(255,255,255,0.3); }
+
+  /* ==========================================
+     HALAMAN 2: KAMUS INDRAMAYU (AGEN ALWI)[span_4](start_span)[span_4](end_span)
+     ========================================== */
+  .kamus-layout { display: flex; flex-direction: column; height: 100%; background: #0d0d0d; overflow-y: auto; scrollbar-width: none; }
+  .kamus-layout::-webkit-scrollbar { display: none; }
+  header { background: linear-gradient(135deg, #0d0a02, #1a1408, #0d0a02); border-bottom: 2px solid #7a5c1e; padding: 14px 10px; text-align: center; }
+  .bismillah { font-size: 12px; color: #c9a84c; opacity: 0.7; letter-spacing: 2px; }
+  header h1 { font-family: 'Cinzel', serif; font-size: 18px; background: linear-gradient(135deg, #7a5c1e, #c9a84c, #f0d070, #c9a84c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; margin: 4px 0; }
+  .agent-badge { display: inline-flex; align-items: center; background: linear-gradient(135deg, #7a5c1e, #c9a84c); color: #000; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 2px; }
+  
+  /* Navigasi Internal App */
+  .internal-nav { display: flex; gap: 4px; justify-content: center; padding: 8px 5px; background: #141414; }
+  .btn-nav-inc { background: rgba(201,168,76,0.12); border: 1px solid #7a5c1e; color: #c9a84c; font-size: 10px; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+  .btn-nav-inc.active-btn { background: #c9a84c; color: #000; }
+
+  .ticker-wrap { background: linear-gradient(135deg, #1a3a2a, #0d2010); border-bottom: 1px solid rgba(201,168,76,0.2); padding: 4px 0; overflow: hidden; }
+  .ticker-track { display: flex; animation: ticker 25s linear infinite; white-space: nowrap; }
+  .ticker-item { font-size: 11px; color: #c9a84c; padding: 0 15px; }
+  
+  .kamus-main { padding: 12px; flex: 1; }
+  .search-wrap { display: flex; gap: 6px; margin-bottom: 8px; }
+  #inputKata { flex: 1; background: #1e1608; border: 1.5px solid #7a5c1e; color: #e8d5a0; font-size: 14px; padding: 8px 12px; border-radius: 8px; outline: none; }
+  .btn-search-inc { background: linear-gradient(135deg, #7a5c1e, #c9a84c); color: #000; border: none; padding: 8px 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  
+  .tools-row { display: flex; gap: 4px; margin-bottom: 10px; }
+  .tool-btn { flex: 1; background: transparent; border: 1px solid #7a5c1e; color: #c9a84c; padding: 6px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+  .filter-row { display: flex; gap: 4px; overflow-x: auto; margin-bottom: 10px; padding-bottom: 4px; scrollbar-width:none; }
+  .filter-chip { background: #1e1608; border: 1px solid #3a2c0a; border-radius: 12px; padding: 4px 10px; font-size: 10px; color: #9a8050; cursor: pointer; white-space: nowrap; }
+  .filter-chip.aktif { border-color: #c9a84c; color: #c9a84c; background: #1a1408; }
+  
+  .status-bar { text-align: center; font-size: 11px; color: #9a8050; margin-bottom: 8px; }
+  .kartu { background: linear-gradient(135deg, #1e1608, #150f03); border: 1.5px solid #7a5c1e; border-radius: 10px; padding: 14px; box-shadow: 0 4px 15px rgba(201,168,76,0.15); }
+  .kata-utama { font-family: 'Cinzel', serif; font-size: 24px; color: #c9a84c; letter-spacing: 1px; }
+  .divider { border: none; border-top: 1px solid #3a2c0a; margin: 8px 0; }
+  .baris { display: grid; grid-template-columns: 80px 1fr; gap: 4px; margin-bottom: 6px; }
+  .lbl { font-size: 9px; color: #9a8050; text-transform: uppercase; letter-spacing: 1px; }
+  .val { font-size: 14px; color: #e8d5a0; }
+  .val-pasar { font-size: 13px; color: #f0d070; font-style: italic; }
+  .tts-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 10px; }
+  .tts-btn { background: transparent; border: 1px solid #7a5c1e; color: #c9a84c; padding: 6px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+  .browser-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 8px; }
+  .mirip-item { background: #1e1608; border: 1px solid #3a2c0a; border-radius: 6px; padding: 8px; cursor: pointer; }
+  .mi-kata { font-size: 13px; color: #c9a84c; font-weight: 600; }
+  .mi-arti { font-size: 11px; color: #9a8050; }
+
+  /* ==========================================
+     HALAMAN 3: KOMUNITAS & FEED SOSMED[span_5](start_span)[span_5](end_span)
+     ========================================== */
+  .sosmed-layout { display: flex; flex-direction: column; height: 100%; background: #f0f2f5; color: #333; overflow-y: auto; scrollbar-width: none; }
+  .topnav { background: #fff; border-bottom: 1px solid #ddd; display: flex; align-items: center; padding: 0 10px; height: 50px; justify-content: space-between; position: sticky; top:0; z-index: 10; }
+  .nav-logo { display:flex; align-items:center; gap:4px; font-family:'Cinzel',serif; font-size:12px; font-weight:700; color: #1a6b3a; }
+  .post-composer { background:#fff; border-radius:8px; padding: 10px; margin: 8px; box-shadow:0 1px 2px rgba(0,0,0,0.1); }
+  .composer-top { display:flex; gap:8px; align-items:center; }
+  .composer-av { width:32px; height:32px; border-radius:50%; background:#1a6b3a; display:flex; align-items:center; justify-content:center; font-size:12px; color:#fff; font-family:'Cinzel',serif; }
+  .composer-input { flex:1; background:#f0f2f5; border:none; border-radius:15px; padding:8px 12px; font-size:12px; outline:none; }
+  .feed-post { background:#fff; border-radius:8px; margin: 0 8px 8px; box-shadow:0 1px 2px rgba(0,0,0,0.1); overflow:hidden; }
+  .post-header { display:flex; align-items:center; gap:8px; padding:10px; }
+  .post-info { flex:1; }
+  .post-name { font-size:13px; font-weight:700; color:#1C1E21; }
+  .post-meta { font-size:11px; color:#65676B; }
+  .post-text { padding:0 10px 8px; font-size:13px; color:#1C1E21; line-height:1.5; }
+  .post-img { width:100%; background:linear-gradient(135deg,#1a3a2a,#0d1a12); color:#C9A84C; font-family:'Cinzel',serif; font-size:14px; font-weight:700; text-align:center; padding:30px 10px; }
+  .reaction-bar { display:flex; border-top:1px solid #f0f2f5; padding:4px 0; }
+  .react-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:4px; padding:6px; font-size:12px; font-weight:600; color:#65676B; cursor:pointer; }
+  
+  /* ==========================================
+     POPUP OVERLAY MODERN SYSTEM
+     ========================================== */
+  .popup-overlay {
+    display:none; position:absolute; inset:0; background:rgba(0,0,0,0.85);
+    z-index:500; backdrop-filter:blur(6px); align-items:center; justify-content:center;
+  }
+  .popup-overlay.show { display:flex; }
+  .popup-box { width:90%; background:#161616; border-radius:24px; border:1px solid rgba(255,255,255,0.15); overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.9); }
+  .popup-header { padding:12px 16px; background:rgba(255,255,255,0.04); border-bottom:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:10px; }
+  .popup-title { font-size:13px; font-weight:600; color:#fff; flex:1; }
+  .popup-close { width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.1); border:none; color:#fff; font-size:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .popup-iframe { width:100%; height:320px; border:none; background:#000; }
+  .popup-actions { display:flex; gap:8px; padding:12px; background: #111; }
+  .popup-btn { flex:1; padding:10px; border-radius:10px; border:none; font-size:11px; font-weight:600; cursor:pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+  .popup-btn.open { background:linear-gradient(135deg,#C9A84C,#E8C97A); color:#0A0A0A; }
+  .popup-btn.cancel { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); }
+</style>
+</head>
+<body>
+
+<div class="phone-wrapper-container">
+
+  <!-- ==================================================================
+       PAGINA 1: ANDROID HOME SCREEN SYSTEM
+       ================================================================== -->
+  <div class="page-container active-page" id="view-android">
+    <div class="wallpaper"></div>
+    <div class="android-content">
+      
+      <!-- STATUS BAR -->
+      <div class="statusbar">
+        <span class="sb-time main-clock-fill">09:41</span>
+        <div class="sb-icons"><span>▲▲▲</span><span>WiFi</span><span>🔋 87%</span></div>
+      </div>
+
+      <!-- CLOCK WIDGET -->
+      <div class="clock-widget">
+        <div class="clock-time main-clock-fill">09:41</div>
+        <div class="clock-date" id="main-date-fill">Rabu, 25 Juni 2026</div>
+      </div>
+
+      <!-- GOOGLE SEARCH ENGINE (AKTIF & FUNGSIONAL) -->
+      <div class="search-container">
+        <form class="search-bar-form" action="https://www.google.com/search" method="get" target="_blank">
+          <span class="search-g">G</span>
+          <input type="text" name="q" class="search-input" placeholder="Cari di Google Makrifat..." required>
+          <button type="submit" class="search-btn-submit">🔍</button>
+        </form>
+      </div>
+
+      <!-- SCROLLABLE APPS PORTAL -->
+      <div class="scroll-area">
+        
+        <div class="section-label">📱 Sosial Media</div>
+        <div class="app-grid">
+          <!-- Facebook -->
+          <div class="app-item" onclick="openApp('Facebook','https://m.facebook.com/','📘')">
+            <div class="app-icon ic-fb"><svg viewBox="0 0 36 36" fill="white"><path d="M20.18 35.84V20.39h5.2l.78-6.04h-5.98v-3.86c0-1.75.49-2.94 3-2.94h3.2V2.15A42.8 42.8 0 0021.13 2c-4.6 0-7.75 2.81-7.75 7.97v4.38H8.13v6.04h5.25v15.45h6.8z"/></svg><div class="badge">3</div></div>
+            <span class="app-name">Facebook</span>
+          </div>
+          <!-- WhatsApp -->
+          <div class="app-item" onclick="openApp('WhatsApp Web','https://web.whatsapp.com/','💬')">
+            <div class="app-icon ic-wa"><svg viewBox="0 0 36 36" fill="white"><path d="M18 2C9.16 2 2 9.16 2 18c0 2.85.74 5.52 2.02 7.84L2 34l8.4-2c2.24 1.15 4.77 1.8 7.6 1.8 8.84 0 16-7.16 16-16S26.84 2 18 2zm8.27 22.55c-.35.98-2.04 1.88-2.8 1.96-.75.09-1.46.37-4.9-1.02-4.12-1.67-6.76-5.87-6.97-6.14-.2-.27-1.67-2.22-1.67-4.23s1.06-3 1.44-3.41c.37-.4.82-.51 1.09-.51.27 0 .54 0 .78.01.25.01.59-.1.92.7.35.82 1.2 2.83 1.3 3.04.11.2.18.44.04.7-.14.27-.2.44-.4.67-.2.24-.42.53-.6.71-.2.2-.41.41-.18.8.24.4 1.06 1.74 2.27 2.82 1.56 1.38 2.87 1.81 3.27 2.02.4.2.64.17.87-.1.24-.27 1.02-1.19 1.29-1.6.27-.4.54-.33.91-.2.37.14 2.37 1.12 2.78 1.32.4.2.67.3.77.47.1.17.1.98-.25 1.96z"/></svg><div class="badge">12</div></div>
+            <span class="app-name">WhatsApp</span>
+          </div>
+          <!-- TikTok -->
+          <div class="app-item" onclick="openApp('TikTok','https://www.tiktok.com/','🎵')">
+            <div class="app-icon ic-tt"><span style="font-size:20px;font-weight:900;color:#fff;">♪</span></div>
+            <span class="app-name">TikTok</span>
+          </div>
+          <!-- YouTube (NEW ADDED) -->
+          <div class="app-item" onclick="openApp('YouTube','https://www.youtube.com/','🔴')">
+            <div class="app-icon ic-yt"><span style="font-size:18px;color:#fff;">▶</span></div>
+            <span class="app-name">YouTube</span>
+          </div>
+        </div>
+
+        <div class="section-label">🎮 Games</div>
+        <div class="app-grid">
+          <div class="app-item" onclick="openApp('Chess.com','https://www.chess.com/id/play','♟️')">
+            <div class="app-icon ic-chess"><span style="font-size:22px;">♟</span></div>
+            <span class="app-name">Chess.com</span>
+          </div>
+          <div class="app-item" onclick="openApp('Permainan','https://www.permainan.co.id/','🎯')">
+            <div class="app-icon ic-game"><span style="font-size:20px;">🎯</span></div>
+            <span class="app-name">Permainan</span>
+          </div>
+          <div class="app-item" onclick="navigatePage('kamus')">
+            <div class="app-icon ic-indclub"><span style="font-size:18px;color:#C9A84C;">📖</span></div>
+            <span class="app-name">Kamus Dermayu</span>
+          </div>
+          <div class="app-item">
+            <div class="folder-box">
+              <div class="folder-mini ic-chess">♟</div>
+              <div class="folder-mini ic-game">🎯</div>
+              <div class="folder-mini ic-yt">▶</div>
+              <div class="folder-mini ic-grey"></div>
+            </div>
+            <span class="app-name">Games</span>
+          </div>
+        </div>
+
+        <div class="section-label">🛠️ Internal Ecosystem</div>
+        <div class="app-grid">
+          <div class="app-item" onclick="navigatePage('kamus')">
+            <div class="app-icon ic-indclub"><span style="font-size:18px; color:#C9A84C; font-weight:700;">ꦆ</span></div>
+            <span class="app-name">Kamus Alwi v2</span>
+          </div>
+          <div class="app-item" onclick="navigatePage('sosmed')">
+            <div class="app-icon ic-wa"><span style="font-size:18px; color:#fff;">👥</span></div>
+            <span class="app-name">Komunitas Club</span>
+          </div>
+          <div class="app-item" onclick="openApp('Claude AI','https://claude.ai/','✦')">
+            <div class="app-icon ic-claude"><span style="font-size:20px; color:#fff;">✦</span></div>
+            <span class="app-name">Claude AI</span>
+          </div>
+          <div class="app-item" onclick="openApp('Gallery Member','https://drive.google.com/drive/folders/1S4zZBfhYD7f0i4amQDu56I5T7DsHMcEy','🗂️')">
+            <div class="app-icon ic-gdrive"><span style="font-size:18px;">🗂️</span></div>
+            <span class="app-name">Gallery Mem...</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DOCK BOTTOM BAR -->
+      <div class="dock">
+        <div class="dock-bar">
+          <!-- Dial Telepon Langsung Aktif -->
+          <a class="dock-item" href="tel:08123456789" style="text-decoration:none;">
+            <div class="dock-icon" style="background:linear-gradient(145deg,#34C759,#248A3D);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.58.11.35.03.74-.25 1.02L6.6 10.8z"/></svg>
+            </div>
+          </a>
+          <div class="dock-item" onclick="navigatePage('kamus')">
+            <div class="dock-icon ic-indclub"><span style="font-size:18px;color:#C9A84C;">ꦆ</span></div>
+          </div>
+          <div class="dock-item" onclick="navigatePage('sosmed')">
+            <div class="dock-icon ic-wa"><span style="font-size:18px;color:#fff;">👥</span></div>
+          </div>
+        </div>
+        <div class="home-indicator"><div class="home-bar"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       PAGINA 2: KAMUS INDRAMAYU APP LAYOUT[span_6](start_span)[span_6](end_span)
+       ================================================================== -->
+  <div class="page-container" id="view-kamus">
+    <div class="kamus-layout">
+      <header>
+        <div class="bismillah">﷽</div>
+        <h1>KAMUS INDRAMAYU</h1>[span_7](start_span)[span_7](end_span)
+        <div class="agent-badge">🤖 AGENT ALWI · PENJAGA KAMUS</div>[span_8](start_span)[span_8](end_span)
+      </header>
+      
+      <div class="internal-nav">
+        <button class="btn-nav-inc" onclick="navigatePage('android')">🏠 Home Android</button>
+        <button class="btn-nav-inc active-btn">📖 Kamus v2</button>
+        <button class="btn-nav-inc" onclick="navigatePage('sosmed')">👥 Komunitas</button>
+      </div>
+
+      <div class="ticker-wrap">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </div>
+
+      <div class="kamus-main">
+        <div class="search-wrap">
+          <input type="text" id="inputKata" placeholder="Ketik kata Indramayu…" autocomplete="off">
+          <button class="btn-search-inc" onclick="cariKataIndramayu()">🔍</button>
+        </div>
+
+        <div class="tools-row">
+          <button class="tool-btn" onclick="acakKataKamus()">🎲 Acak</button>
+          <button class="tool-btn" onclick="clearKamus()">🗑️ Hapus</button>
+        </div>
+
+        <div class="status-bar" id="statusBar">Kamus Indramayu Club Aktif</div>
+        <div id="hasilBox"></div>
+        <div class="browser-grid" id="browserGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       PAGINA 3: KOMUNITAS SOSIAL MEDIA LAYOUT[span_9](start_span)[span_9](end_span)
+       ================================================================== -->
+  <div class="page-container" id="view-sosmed">
+    <div class="sosmed-layout">
+      <div class="topnav">
+        <div class="nav-logo"><span>ꦆ</span> Indramayu Club Feed</div>[span_10](start_span)[span_10](end_span)
+        <button class="btn-nav-inc" onclick="navigatePage('android')" style="padding:4px 8px;">✕ Keluar</button>
+      </div>
+
+      <div class="internal-nav" style="background:#fff; border-bottom:1px solid #e4e6eb;">
+        <button class="btn-nav-inc" onclick="navigatePage('android')">📱 Home Android</button>
+        <button class="btn-nav-inc" onclick="navigatePage('kamus')">📖 Buka Kamus</button>
+        <button class="btn-nav-inc active-btn">👥 Komunitas</button>
+      </div>
+
+      <div class="post-composer">[span_11](start_span)[span_11](end_span)
+        <div class="composer-top">[span_12](start_span)[span_12](end_span)
+          <div class="composer-av">NM</div>[span_13](start_span)[span_13](end_span)
+          <input type="text" class="composer-input" placeholder="Apa yang Anda pikirkan, Nur Makrifat?">[span_14](start_span)[span_14](end_span)
+        </div>
+      </div>
+
+      <!-- Feed Post -->
+      <div class="feed-post">[span_15](start_span)[span_15](end_span)
+        <div class="post-header">[span_16](start_span)[span_16](end_span)
+          <div class="post-av" style="background:#7a5c1e">A</div>[span_17](start_span)[span_17](end_span)
+          <div class="post-info">[span_18](start_span)[span_18](end_span)
+            <div class="post-name">Agent Alwi</div>[span_19](start_span)[span_19](end_span)[span_20](start_span)[span_20](end_span)
+            <div class="post-meta">Baru Saja · Penjaga Makrifat 🌐</div>[span_21](start_span)[span_21](end_span)
+          </div>
+        </div>
+        <div class="post-text">
+          Sugeng rawuh! Kehormatan besar bagi kami untuk terus mengibarkan nama <span style="color:#1a6b3a; font-weight:700;">Indramayu Club Makrifat</span> ke panggung global. Sentuh tombol navigasi di atas untuk menjelajah sistem!
+        </div>
+        <div class="post-img">✦ INDRAMAYU CLUB MAKRIFAT SYSTEM v2 ✦</div>[span_22](start_span)[span_22](end_span)
+        <div class="reaction-bar">[span_23](start_span)[span_23](end_span)
+          <div class="react-btn">👍 Suka</div>[span_24](start_span)[span_24](end_span)
+          <div class="react-btn" onclick="navigatePage('kamus')">💬 Kamus</div>
+          <div class="react-btn" onclick="navigatePage('android')">📱 Home</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ==========================================
+     POPUP IFRAME SYSTEM MODAL OVERLAY
+     ========================================== */ -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-header">
+      <span class="popup-icon" id="p-icon">🌐</span>
+      <div class="popup-title" id="p-title">Web Application</div>
+      <button class="popup-close" onclick="closePopup()">✕</button>
+    </div>
+    <iframe class="popup-iframe" id="p-frame" src="about:blank" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    <div class="popup-actions">
+      <!-- Tombol Navigasi Lanjutan untuk membuat halaman benar-benar hidup -->
+      <button class="popup-btn open" id="p-open" onclick="openExternal()">🔗 Buka Tab Baru</button>
+      <button class="popup-btn cancel" onclick="closePopup()">Tutup Aplikasi</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Data Kamus Ringkas Internal[span_25](start_span)[span_25](end_span)
+  const kamusData = {
+    "kula": { indonesia:"Saya", pasar:"Kula (Formal)", kategori:"Kata Ganti" },
+    "isun": { indonesia:"Aku", pasar:"Reang / Isun", kategori:"Kata Ganti" },
+    "sira": { indonesia:"Kamu", pasar:"Ira / Sira", kategori:"Kata Ganti" },
+    "mangan": { indonesia:"Makan", pasar:"Mangan / Madang", kategori:"Kata Kerja" },
+    "turu": { indonesia:"Tidur", pasar:"Turu / Merem", kategori:"Kata Kerja" },
+    "saiki": { indonesia:"Sekarang", pasar:"Saiki / Kien", kategori:"Waktu" },
+    "apik": { indonesia:"Bagus / Keren", pasar:"Apik / Becik", kategori:"Kata Sifat" }
+  };
+
+  // Live Clock Engine
+  function runClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const timeString = h + ':' + m;
+    
+    document.querySelectorAll('.main-clock-fill').forEach(el => el.textContent = timeString);
+    
+    const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    const dateString = days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    
+    const dateEl = document.getElementById('main-date-fill');
+    if(dateEl) dateEl.textContent = dateString;
+  }
+  setInterval(runClock, 1000);
+  runClock();
+
+  // Multi-Page Cross Routing Navigation System
+  function navigatePage(pageId) {
+    document.querySelectorAll('.page-container').forEach(page => {
+      page.classList.remove('active-page');
+    });
+    const targetPage = document.getElementById('view-' + pageId);
+    if(targetPage) {
+      targetPage.classList.add('active-page');
+    }
+    closePopup();
+  }
+
+  // Popup Iframe Controller
+  let activeAppUrl = '';
+  function openApp(name, url, icon) {
+    activeAppUrl = url;
+    document.getElementById('p-icon').textContent = icon;
+    document.getElementById('p-title').textContent = name;
+    document.getElementById('p-frame').src = url;
+    document.getElementById('popup').classList.add('show');
+  }
+  
+  function closePopup() {
+    document.getElementById('popup').classList.remove('show');
+    document.getElementById('p-frame').src = 'about:blank';
+  }
+  
+  function openExternal() {
+    window.open(activeAppUrl, '_blank');
+    closePopup();
+  }
+
+  // Kamus System Business Logics[span_26](start_span)[span_26](end_span)
+  function cariKataIndramayu() {
+    const word = document.getElementById('inputKata').value.toLowerCase().trim();
+    const box = document.getElementById('hasilBox');
+    const statusBar = document.getElementById('statusBar');
+    
+    if(!word) return;
+    
+    if(kamusData[word]) {
+      const d = kamusData[word];
+      statusBar.textContent = "Kata ditemukan!";
+      box.innerHTML = `
+        <div class="kartu">
+          <div class="kata-utama">${word}</div>
+          <hr class="divider">
+          <div class="baris"><div class="lbl">🇮🇩 Indo</div><div class="val">${d.indonesia}</div></div>
+          <div class="baris"><div class="lbl">🛒 Pasar</div><div class="val-pasar">${d.pasar}</div></div>
+        </div>`;
+    } else {
+      statusBar.textContent = "Kata tidak ditemukan.";
+      box.innerHTML = `<div class="kartu">Kata "${word}" belum terdaftar di database local.</div>`;
+    }
+  }
+
+  function acakKataKamus() {
+    const keys = Object.keys(kamusData);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    document.getElementById('inputKata').value = randomKey;
+    cariKataIndramayu();
+  }
+
+  function clearKamus() {
+    document.getElementById('inputKata').value = '';
+    document.getElementById('hasilBox').innerHTML = '';
+    document.getElementById('statusBar').textContent = 'Siap';
+  }
+
+  // Init Ticker[span_27](start_span)[span_27](end_span)
+  const track = document.getElementById('tickerTrack');
+  if(track) {
+    track.innerHTML = Object.keys(kamusData).map(k => `<div class="ticker-item"><b>${k}</b> = ${kamusData[k].indonesia}</div>`).join('');
+  }
+</script>
+</body>
+</html>
