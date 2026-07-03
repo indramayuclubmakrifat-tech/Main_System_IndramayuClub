@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Indramayu Club — Server Hub Launcher</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 50% 50%, #0d1f14 0%, #050a07 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .font-cinzel { font-family: 'Cinzel', serif; }
+    .gold-border { border: 1px solid #C9A84C; }
+    .gold-text { color: #C9A84C; }
+    .active-btn { background: linear-gradient(135deg, #7a5c1e 0%, #c9a84c 100%); color: white; border-color: #C9A84C; }
+  </style>
+</head>
+<body class="flex flex-col h-screen">
+
+  <header class="bg-[#0b140f] p-4 gold-border border-t-0 border-l-0 border-r-0 shadow-lg flex justify-between items-center z-10">
+    <div class="flex items-center space-x-3">
+      <div class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
+      <div>
+        <h1 class="font-cinzel text-sm font-bold gold-text tracking-wide">INDRAMAYU CLUB v2</h1>
+        <p class="text-[10px] text-gray-400">Android Node Portal & Raw Server Webview</p>
+      </div>
+    </div>
+    <div class="text-right">
+      <span class="text-[10px] bg-[#16241c] px-2 py-1 rounded gold-text font-mono border border-emerald-900">
+        ADMIN: dkohar011@gmail.com
+      </span>
+    </div>
+  </header>
+
+  <nav class="bg-[#090f0b] p-2 overflow-x-auto flex space-x-2 border-b border-emerald-950 scrollbar-none z-10">
+    <button onclick="pindahNode('launcher', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/index.html')" 
+            id="btn-launcher" class="active-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-lg border font-medium transition duration-200">
+      <i class="fas fa-home mr-1"></i> Launcher Utama
+    </button>
+    
+    <button onclick="pindahNode('dashboard', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/dasbord.html')" 
+            id="btn-dashboard" class="flex-shrink-0 bg-[#111a14] border-emerald-900 hover:bg-emerald-900 text-xs px-3 py-1.5 rounded-lg border text-gray-300 font-medium transition duration-200">
+      <i class="fas fa-chart-line mr-1"></i> Dashboard Media
+    </button>
+
+    <button onclick="pindahNode('celengan', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/celengan.html')" 
+            id="btn-celengan" class="flex-shrink-0 bg-[#111a14] border-emerald-900 hover:bg-emerald-900 text-xs px-3 py-1.5 rounded-lg border text-gray-300 font-medium transition duration-200">
+      <i class="fas fa-piggy-bank mr-1"></i> Celengan AI
+    </button>
+
+    <button onclick="pindahNode('kamus', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/halaman2.html')" 
+            id="btn-kamus" class="flex-shrink-0 bg-[#111a14] border-emerald-900 hover:bg-emerald-900 text-xs px-3 py-1.5 rounded-lg border text-gray-300 font-medium transition duration-200">
+      <i class="fas fa-book-open mr-1"></i> Agent Alwi (Halaman 2)
+    </button>
+
+    <button onclick="pindahNode('halaman_portal', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/halaman.html')" 
+            id="btn-halaman_portal" class="flex-shrink-0 bg-[#111a14] border-emerald-900 hover:bg-emerald-900 text-xs px-3 py-1.5 rounded-lg border text-gray-300 font-medium transition duration-200">
+      <i class="fas fa-door-open mr-1"></i> Halaman Portal
+    </button>
+
+    <button onclick="pindahNode('bagian1', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/bagian1.html')" 
+            id="btn-bagian1" class="flex-shrink-0 bg-[#111a14] border-emerald-900 hover:bg-emerald-900 text-xs px-3 py-1.5 rounded-lg border text-gray-300 font-medium transition duration-200">
+      <i class="fas fa-layer-group mr-1"></i> Bagian 1
+    </button>
+
+    <button onclick="pindahNode('administrasi', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/administrasi.html')" 
+            id="btn-administrasi" class="flex-shrink-0 bg-[#111a14] border-emerald-900 hover:bg-emerald-900 text-xs px-3 py-1.5 rounded-lg border text-gray-300 font-medium transition duration-200">
+      <i class="fas fa-folder-open mr-1"></i> Administrasi Keuangan
+    </button>
+
+    <button onclick="pindahNode('android_html', 'https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/android..html')" 
+            id="btn-android_html" class="flex-shrink-0 bg-[#111a14] border-emerald-900 hover:bg-emerald-900 text-xs px-3 py-1.5 rounded-lg border text-gray-300 font-medium transition duration-200">
+      <i class="fas fa-robot mr-1"></i> Android Core
+    </button>
+  </nav>
+
+  <main class="flex-1 w-full bg-black relative">
+    <iframe id="mainIframe" 
+            src="https://raw.githubusercontent.com/indramayuclubmakrifat-tech/Main_System_IndramayuClub/main/index.html" 
+            class="w-full h-full border-none bg-black"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
+    </iframe>
+  </main>
+
+  <footer class="bg-[#070d09] px-4 py-2 border-t border-emerald-950 flex justify-between items-center text-[10px] font-mono text-gray-400 z-10">
+    <div id="statusTerminal">
+      <i class="fas fa-server text-emerald-500 mr-1"></i> Active: <span class="text-white font-semibold" id="nodeAktif">LAUNCHER</span>
+    </div>
+    <div id="urlTerminal" class="truncate max-w-[200px] text-gray-500">
+      index.html
+    </div>
+  </footer>
+
+  <script>
+    // Fungsi Pengalih Navigasi Halaman
+    function pindahNode(idKomponen, urlRaw) {
+      const iframe = document.getElementById('mainIframe');
+      const labelNode = document.getElementById('nodeAktif');
+      const labelUrl = document.getElementById('urlTerminal');
+      
+      // Load URL mentah dari Github
+      iframe.src = urlRaw;
+      
+      // Update data di terminal bawah
+      labelNode.textContent = idKomponen.toUpperCase();
+      labelUrl.textContent = urlRaw.split('/').pop();
+
+      // Reset style tombol agar tidak tabrakan
+      const semuaTombol = document.querySelectorAll('nav button');
+      semuaTombol.forEach(btn => {
+        btn.classList.remove('active-btn');
+        btn.classList.add('bg-[#111a14]', 'text-gray-300', 'border-emerald-900');
+      });
+
+      // Beri warna emas untuk tombol yang sedang aktif
+      const tombolAktif = document.getElementById('btn-' + idKomponen);
+      if (tombolAktif) {
+        tombolAktif.classList.remove('bg-[#111a14]', 'text-gray-300', 'border-emerald-900');
+        tombolAktif.classList.add('active-btn');
+      }
+    }
+  </script>
+</body>
+</html>
