@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indramayu Club - Media Sosial</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══ TOP NAVBAR ═══ */
+.topnav {
+  position: sticky; top:0; z-index:200;
+  background: #ffffff;
+  border-bottom: 2px solid #C9A84C;
+  display: flex; align-items: center;
+  padding: 0 16px;
+  height: 56px;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(201,168,76,0.15);
+}
+.nav-logo {
+  display:flex; align-items:center; gap:8px;
+  font-family:'Cinzel',serif; font-size:15px; font-weight:700;
+  color: #1a6b3a; white-space:nowrap;
+}
+.nav-logo span { font-size:20px; color:#C9A84C; }
+.nav-search {
+  flex:1; max-width:240px;
+  background:#f5f5f5; border:1px solid #E0E0E0; border-radius:20px;
+  padding: 8px 14px; font-size:13px; color:#333; outline:none;
+}
+.nav-right { display:flex; gap:8px; align-items:center; }
+.nav-btn {
+  width:36px; height:36px; border-radius:50%; background:#f5f5f5;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; cursor:pointer; position:relative;
+}
+.nav-btn:hover { background:#efefef; }
+.nbadge {
+  position:absolute; top:-2px; right:-2px;
+  background:#e41e3f; color:#fff; font-size:9px; font-weight:700;
+  min-width:16px; height:16px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  border:2px solid #fff; padding:0 3px;
+}
+
+/* ═══ TICKER BAHASA INDRAMAYU ═══ */
+.ticker-bar {
+  background: linear-gradient(135deg, #1a3a2a, #0d2010);
+  border-bottom: 2px solid #C9A84C;
+  padding: 6px 0;
+  overflow: hidden;
+  position: relative;
+}
+.ticker-label {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: #C9A84C; color: #000;
+  font-size: 10px; font-weight: 800; letter-spacing: 1px;
+  padding: 0 12px;
+  display: flex; align-items: center;
+  z-index: 2; white-space: nowrap;
+}
+.ticker-track {
+  display: flex;
+  animation: ticker 30s linear infinite;
+  padding-left: 100px;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  white-space: nowrap; font-size: 12px; color: #C9A84C;
+  padding: 0 32px; letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.ticker-item span { color: rgba(255,255,255,0.6); font-size: 10px; margin-left: 4px; }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ═══ MAIN LAYOUT ═══ */
+.main-layout {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 16px 12px;
+  gap: 16px;
+}
+
+/* ═══ LEFT SIDEBAR ═══ */
+.left-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  display:flex; flex-direction:column; gap:8px;
+}
+
+.sidebar-profile {
+  background:#ffffff; border-radius:12px;
+  padding:16px; text-align:center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #f0f0f0;
+}
+.profile-avatar {
+  width:70px; height:70px; border-radius:50%; margin:0 auto 10px;
+  background:linear-gradient(135deg,#1a6b3a,#C9A84C);
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; font-weight:700; color:#fff;
+  font-family:'Cinzel',serif;
+  border:3px solid #C9A84C;
+}
+.profile-name { font-size:15px; font-weight:700; color:#1C1E21; }
+.profile-role { font-size:12px; color:#65676B; margin-top:3px; }
+.profile-badge {
+  display:inline-block; margin-top:8px;
+  background:linear-gradient(135deg,#C9A84C,#E8C97A);
+  color:#000; font-size:10px; font-weight:700;
+  padding:3px 10px; border-radius:10px; letter-spacing:0.05em;
+}
+
+/* LEFT MENU */
+.left-menu { background:#ffffff; border-radius:12px; padding:8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #f0f0f0; }
+.menu-title { font-size:11px; font-weight:700; color:#65676B; letter-spacing:0.08em; text-transform:uppercase; padding:8px 8px 4px; }
+.menu-row {
+  display:flex; align-items:center; gap:10px;
+  padding:9px 10px; border-radius:8px; cursor:pointer;
+  font-size:13px; font-weight:500; color:#1C1E21;
+  transition:background 0.12s;
+}
+.menu-row:hover { background:#f5f5f5; }
+.menu-row.active { background:#e8f5e9; color:#1a6b3a; font-weight:600; }
+.menu-icon-box {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+
+/* KAMUS MINI CARD */
+.kamus-card {
+  background: linear-gradient(135deg,#1a3a2a,#0d2010);
+  border-radius: 12px; padding: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid rgba(201,168,76,0.3);
+  cursor: pointer;
+}
+.kamus-card-title { font-size: 11px; color: rgba(201,168,76,0.7); font-weight:700; letter-spacing: 1px; text-transform: uppercase; }
+.kamus-kata-of-day { font-size: 22px; color: #C9A84C; font-family:'Cinzel',serif; font-weight:700; margin: 6px 0 2px; }
+.kamus-arti { font-size: 12px; color: rgba(255,255,255,0.7); }
+.kamus-tts-btn {
+  margin-top: 8px; display:flex; align-items:center; gap:5px;
+  background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 6px; padding: 5px 10px; color: #C9A84C;
+  font-size: 11px; cursor: pointer; width: 100%;
+  transition: background 0.2s;
+}
+.kamus-tts-btn:hover { background: rgba(201,168,76,0.3); }
+
+/* ═══ CENTER FEED ═══ */
+.center-feed {
+  flex:1; min-width:0;
+  display:flex; flex-direction:column; gap:12px;
+}
+
+/* POST COMPOSER */
+.post-composer {
+  background:#ffffff; border-radius:12px; padding:12px 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #f0f0f0;
+}
+.composer-top {
+  display:flex; gap:10px; align-items:center;
+}
+.composer-av {
+  width:38px; height:38px; border-radius:50%; background:#1a6b3a;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff; font-family:'Cinzel',serif; flex-shrink:0;
+}
+.composer-input {
+  flex:1; background:#f5f5f5; border:none; border-radius:20px;
+  padding:9px 14px; font-size:13px; color:#1C1E21; cursor:pointer;
+  outline:none;
+}
+.composer-input::placeholder { color:#65676B; }
+
+/* FEED POST */
+.feed-post {
+  background:#ffffff; border-radius:12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  overflow:hidden;
+  border: 1px solid #f0f0f0;
+}
+.post-header {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 16px 8px;
+}
+.post-av {
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff; font-family:'Cinzel',serif; flex-shrink:0;
+}
+.post-info { flex:1; }
+.post-name { font-size:14px; font-weight:700; color:#1C1E21; }
+.post-meta { font-size:12px; color:#65676B; }
+.post-text { padding:0 16px 10px; font-size:14px; color:#1C1E21; line-height:1.6; }
+
+.indr-word {
+  display: inline-block;
+  background: #fffde7;
+  border: 1px solid #C9A84C60;
+  border-radius: 4px;
+  padding: 0 5px;
+  color: #7a5c1e;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+  position: relative;
+}
+.indr-word:hover { background: #fff9c4; }
+.indr-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 130%; left: 50%; transform: translateX(-50%);
+  background: #1a3a2a; color: #C9A84C;
+  font-size: 11px; font-weight: 400;
+  padding: 5px 10px; border-radius: 6px;
+  white-space: nowrap; z-index: 20;
+  border: 1px solid rgba(201,168,76,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  pointer-events: none;
+}
+.indr-word:hover .indr-tooltip { display: block; }
+
+.post-img {
+  width:100%; background:#f5f5f5;
+  display:flex; align-items:center; justify-content:center;
+  font-size:48px; min-height:180px;
+  background:linear-gradient(135deg,#1a3a2a,#0d1a12);
+  color:#C9A84C; letter-spacing:0.1em;
+  font-family:'Cinzel',serif; font-size:20px; font-weight:700;
+  text-align:center; padding:20px;
+}
+
+/* REACTION BAR */
+.reaction-summary {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 16px; border-bottom:1px solid #f0f2f5;
+  font-size:13px; color:#65676B;
+}
+.reaction-bar {
+  display:flex; border-top:1px solid #f0f2f5;
+}
+.react-btn {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:5px;
+  padding:8px; font-size:13px; font-weight:600; color:#65676B;
+  cursor:pointer; transition:background 0.12s;
+}
+.react-btn:hover { background:#f5f5f5; }
+.react-btn.liked { color:#e41e3f; }
+
+/* COMMENTS */
+.comments-section { padding:8px 16px 12px; }
+.comment-input-row {
+  display:flex; gap:8px; align-items:center; margin-bottom:10px;
+}
+.comment-av {
+  width:30px; height:30px; border-radius:50%; background:#1a6b3a;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:#fff; flex-shrink:0;
+}
+.comment-box {
+  flex:1; background:#f5f5f5; border:none; border-radius:16px;
+  padding:7px 12px; font-size:13px; outline:none; color:#1C1E21;
+}
+.comment-box::placeholder { color:#65676B; }
+.comment-item {
+  display:flex; gap:8px; margin-bottom:8px;
+  padding-bottom:8px; border-bottom:1px solid #f5f5f5;
+}
+.comment-item:last-child { border-bottom:none; margin-bottom:0; }
+.comment-body {
+  background:#f5f5f5; border-radius:12px; padding:7px 11px; flex:1;
+}
+.comment-author { font-size:12px; font-weight:700; color:#1C1E21; }
+.comment-text { font-size:13px; color:#1C1E21; margin-top:2px; line-height:1.4; }
+.comment-actions { display:flex; gap:10px; margin-top:4px; padding-left:2px; }
+.comment-act { font-size:11px; color:#65676B; cursor:pointer; font-weight:600; }
+.comment-act:hover { color:#1a6b3a; }
+.comment-gender { font-size:10px; padding:2px 7px; border-radius:8px; font-weight:600; }
+.g-male   { background:#e8f0fe; color:#1a73e8; }
+.g-female { background:#fce4ec; color:#e91e63; }
+
+/* ═══ RIGHT SIDEBAR ═══ */
+.right-sidebar {
+  width: 240px; flex-shrink:0;
+  display:flex; flex-direction:column; gap:10px;
+}
+
+/* POP YOO CARD */
+.pop-yoo {
+  background:#ffffff; border-radius:12px; overflow:hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid #f0f0f0;
+}
+.pop-yoo-header {
+  background:linear-gradient(135deg,#1a3a2a,#0d2010);
+  padding:12px 14px 10px;
+  border-bottom:2px solid #C9A84C;
+}
+.pop-yoo-title { font-family:'Cinzel',serif; font-size:13px; color:#C9A84C; font-weight:700; }
+.pop-yoo-sub { font-size:10px; color:rgba(201,168,76,0.6); margin-top:2px; }
+.pop-yoo-body { padding:10px; }
+.live-member {
+  display:flex; align-items:center; gap:8px;
+  padding:6px 8px; border-radius:8px; cursor:pointer;
+  transition:background 0.12s; margin-bottom:2px;
+}
+.live-member:hover { background:#f5f5f5; }
+.lm-av {
+  width:34px; height:34px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; color:#fff; font-weight:700; position:relative;
+}
+.online-dot {
+  position:absolute; bottom:0; right:0;
+  width:10px; height:10px; border-radius:50%; background:#31a24c;
+  border:2px solid #fff;
+}
+.lm-info { flex:1; }
+.lm-name { font-size:12px; font-weight:600; color:#1C1E21; }
+.lm-badge { font-size:10px; padding:2px 7px; border-radius:8px; font-weight:600; }
+.b-gold { background:#FFF8E1; color:#F9A825; }
+
+/* KAMUS PANEL */
+.kamus-panel {
+  background:#ffffff; border-radius:12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+.kamus-panel-head {
+  background: linear-gradient(135deg,#1a3a2a,#0d2010);
+  padding: 10px 14px;
+  border-bottom: 2px solid #C9A84C;
+}
+.kamus-panel-title { font-family:'Cinzel',serif; font-size:12px; color:#C9A84C; font-weight:700; }
+.kamus-panel-sub { font-size:10px; color:rgba(201,168,76,0.6); margin-top:1px; }
+.kamus-search-wrap { padding: 10px; display:flex; gap:6px; }
+.kamus-search-inp {
+  flex:1; background:#f5f5f5; border:none; border-radius:12px;
+  padding:6px 10px; font-size:12px; outline:none; color:#1C1E21;
+}
+.kamus-search-btn {
+  width:28px; height:28px; border-radius:50%;
+  background:#1a6b3a; border:none; color:#fff;
+  font-size:12px; cursor:pointer; display:flex;
+  align-items:center; justify-content:center; flex-shrink:0;
+}
+.kamus-result {
+  padding: 0 10px 10px;
+  display: none;
+}
+.kamus-result.show { display:block; }
+.kr-kata { font-size:16px; font-weight:700; color:#1a6b3a; font-family:'Cinzel',serif; }
+.kr-arti { font-size:12px; color:#1C1E21; margin-top:2px; }
+.kr-tts { 
+  margin-top:6px; padding:4px 8px; background:#e8f5e9;
+  border:none; border-radius:6px; color:#1a6b3a;
+  font-size:11px; font-weight:600; cursor:pointer; width:100%;
+}
+.kr-tts:hover { background:#c8e6c9; }
+
+@media (max-width:768px) {
+  .main-layout { flex-direction:column; padding:8px; gap:8px; }
+  .left-sidebar, .right-sidebar { width:100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="topnav">
+  <div class="nav-logo">
+    <span>ꦆ</span> Indramayu Club
+  </div>
+  <input class="nav-search" placeholder="🔍  Cari...">
+  <div class="nav-right">
+    <div class="nav-btn">💬 <div class="nbadge">5</div></div>
+    <div class="nav-btn">🔔 <div class="nbadge">9</div></div>
+    <div class="nav-btn" style="background:linear-gradient(135deg,#1a6b3a,#C9A84C);color:#fff;font-family:Cinzel,serif;font-weight:700;">J</div>
+  </div>
+</div>
+
+<!-- ═══ TICKER BAHASA INDRAMAYU ═══ -->
+<div class="ticker-bar">
+  <div class="ticker-label">📖 BASA DERMAYU</div>
+  <div class="ticker-track" id="tickerTrack">
+    <!-- Diisi oleh JS -->
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-layout">
+
+  <!-- ══ LEFT SIDEBAR ══ -->
+  <div class="left-sidebar">
+
+    <!-- Profile Card -->
+    <div class="sidebar-profile">
+      <div class="profile-avatar">J</div>
+      <div class="profile-name">Pak Jamhari</div>
+      <div class="profile-role">Admin · Indramayu Club</div>
+      <div class="profile-badge">⭐ PLATINUM</div>
+    </div>
+
+    <!-- Menu -->
+    <div class="left-menu">
+      <div class="menu-title">Menu</div>
+      <div class="menu-row active">
+        <div class="menu-icon-box" style="background:#e8f5e9;">🏠</div>
+        <div>Beranda</div>
+      </div>
+      <div class="menu-row">
+        <div class="menu-icon-box" style="background:#e3f2fd;">👥</div>
+        <div>Anggota</div>
+      </div>
+      <div class="menu-row">
+        <div class="menu-icon-box" style="background:#f3e5f5;">💬</div>
+        <div>Komentar</div>
+      </div>
+    </div>
+
+    <!-- KAMUS KATA HARI INI -->
+    <div class="kamus-card" onclick="bunyikanKataHariIni()">
+      <div class="kamus-card-title">📖 Kata Hari Ini</div>
+      <div class="kamus-kata-of-day" id="kotdKata">mangan</div>
+      <div class="kamus-arti" id="kotdArti">🇮🇩 makan</div>
+      <button class="kamus-tts-btn" onclick="event.stopPropagation();bunyikanKataHariIni()">
+        🔊 Dengar
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ══ CENTER FEED ══ -->
+  <div class="center-feed">
+
+    <!-- Post Composer -->
+    <div class="post-composer">
+      <div class="composer-top">
+        <div class="composer-av">J</div>
+        <input class="composer-input" placeholder="Apa yang dipikirkan?">
+      </div>
+    </div>
+
+    <!-- POST 1 -->
+    <div class="feed-post">
+      <div class="post-header">
+        <div class="post-av" style="background:linear-gradient(135deg,#1a6b3a,#C9A84C);">ꦆ</div>
+        <div class="post-info">
+          <div class="post-name">Indramayu Club Makrifat</div>
+          <div class="post-meta">Admin · 2 jam lalu</div>
+        </div>
+      </div>
+      <div class="post-text">
+        🌟 <strong>Selamat datang di platform komunitas Indramayu Club!</strong><br>
+        <span class="indr-word">Sugeng rawuh<div class="indr-tooltip">Selamat datang</div></span>
+        ing platform komunitas digital kita.
+      </div>
+      <div class="post-img">
+        ꦆ INDRAMAYU CLUB<br>
+        <span style="font-size:12px;color:rgba(201,168,76,0.7);font-family:Inter,sans-serif;font-weight:400;">Makrifat Intelligence</span>
+      </div>
+      <div class="reaction-summary">
+        <div>❤️👍😮 147 reaksi</div>
+        <span>23 komentar</span>
+      </div>
+      <div class="reaction-bar">
+        <div class="react-btn liked">❤️ Suka</div>
+        <div class="react-btn">💬 Komentar</div>
+        <div class="react-btn">↗️ Bagikan</div>
+      </div>
+      <div class="comments-section">
+        <div class="comment-item">
+          <div class="comment-av" style="background:#1565C0;">A</div>
+          <div>
+            <div class="comment-body">
+              <div class="comment-author">Ahmad Fauzi <span class="comment-gender g-male">♂ Laki</span></div>
+              <div class="comment-text">
+                MasyaAllah, platform yang <span class="indr-word">apik<div class="indr-tooltip">bagus</div></span> banget!
+              </div>
+            </div>
+            <div class="comment-actions">
+              <span class="comment-act">👍 Suka</span>
+              <span class="comment-act">💬 Balas</span>
+            </div>
+          </div>
+        </div>
+        <div class="comment-input-row">
+          <div class="comment-av">J</div>
+          <input class="comment-box" placeholder="Tulis komentar...">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ RIGHT SIDEBAR ══ -->
+  <div class="right-sidebar">
+
+    <!-- KAMUS PANEL -->
+    <div class="kamus-panel">
+      <div class="kamus-panel-head">
+        <div class="kamus-panel-title">📖 Kamus Dermayu</div>
+        <div class="kamus-panel-sub">Cari kata</div>
+      </div>
+      <div class="kamus-search-wrap">
+        <input class="kamus-search-inp" id="kamusSideInput" placeholder="mangan, turu..."
+          onkeydown="if(event.key==='Enter')cariSide()">
+        <button class="kamus-search-btn" onclick="cariSide()">🔍</button>
+      </div>
+      <div class="kamus-result" id="kamusResult"></div>
+    </div>
+
+    <!-- POP YOO -->
+    <div class="pop-yoo">
+      <div class="pop-yoo-header">
+        <div class="pop-yoo-title">✦ Member Aktif</div>
+        <div class="pop-yoo-sub">12 batur online</div>
+      </div>
+      <div class="pop-yoo-body">
+        <div class="live-member">
+          <div class="lm-av" style="background:#1565C0;">A <div class="online-dot"></div></div>
+          <div class="lm-info"><div class="lm-name">Ahmad Fauzi</div></div>
+          <span class="lm-badge b-gold">Gold</span>
+        </div>
+        <div class="live-member">
+          <div class="lm-av" style="background:#e91e63;">S <div class="online-dot"></div></div>
+          <div class="lm-info"><div class="lm-name">Siti Nurhaliza</div></div>
+          <span class="lm-badge b-gold">Gold</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const kamusMini = {
+  "mangan": { indonesia: "makan" },
+  "turu": { indonesia: "tidur" },
+  "batur": { indonesia: "teman" },
+  "saiki": { indonesia: "sekarang" },
+  "seneng": { indonesia: "senang" },
+};
+
+const tickerData = [
+  { kata: "mangan", arti: "makan" },
+  { kata: "turu", arti: "tidur" },
+  { kata: "batur", arti: "teman" },
+];
+
+let audio = null;
+
+function initTicker() {
+  const track = document.getElementById('tickerTrack');
+  const items = [...tickerData, ...tickerData];
+  track.innerHTML = items.map(d =>
+    `<div class="ticker-item">${d.kata} <span>= ${d.arti}</span></div>`
+  ).join('');
+}
+
+function initKotd() {
+  const keys = Object.keys(kamusMini);
+  const idx = new Date().getDate() % keys.length;
+  const k = keys[idx];
+  document.getElementById('kotdKata').textContent = k;
+  document.getElementById('kotdArti').textContent = '🇮🇩 ' + kamusMini[k].indonesia;
+}
+
+function ttsPlay(teks) {
+  if (audio) audio.pause();
+  const u = new SpeechSynthesisUtterance(teks);
+  u.lang = 'id-ID';
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function bunyikanKataHariIni() {
+  const kata = document.getElementById('kotdKata').textContent;
+  ttsPlay(kata);
+}
+
+function cariSide() {
+  const inp = document.getElementById('kamusSideInput').value.toLowerCase().trim();
+  const res = document.getElementById('kamusResult');
+  if (!inp) return;
+
+  const d = kamusMini[inp];
+  if (d) {
+    res.innerHTML = `
+      <div class="kr-kata">${inp}</div>
+      <div class="kr-arti">🇮🇩 ${d.indonesia}</div>
+      <button class="kr-tts" onclick="ttsPlay('${inp}')">🔊 Dengar</button>`;
+    res.classList.add('show');
+    ttsPlay(inp);
+  } else {
+    res.innerHTML = `<div style="font-size:12px; color:#65676B; text-align:center; padding:4px 0;">😕 "${inp}" tidak ada</div>`;
+    res.classList.add('show');
+  }
+}
+
+initTicker();
+initKotd();
+</script>
+</body>
+</html>
