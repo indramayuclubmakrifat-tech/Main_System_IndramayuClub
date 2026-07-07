@@ -212,6 +212,26 @@ async function doLogin() {
     } else { err.classList.add('show'); }
   }
 }
+
+    grid.innerHTML += `
+    <div class="panggung-card ${aku ? 'aktif' : 'nonaktif'}" id="kartu-${id}">
+      <div class="panggung-video-wrap">
+        ${aku ? `
+          <video class="grid-stream-video" id="panggungVideoAktif" autoplay playsinline style="display:none; object-fit: cover; width:100%; height:100%;"></video>
+          <div class="panggung-avatar-fallback" id="fallbackAvatar-${id}">${m.avatar}</div>
+        ` : `
+          <div class="panggung-avatar-fallback">${m.avatar}</div>
+        `}
+      </div>
+      <div class="panggung-info">
+        <div class="panggung-nama">${m.nama.split(' ')[0]}</div>
+        <div class="panggung-status" id="statusPanggung-${id}">⚫ Standby</div>
+      </div>
+    </div>`;
+  });
+}
+
+//
 function masukApp() {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('mainApp').style.display = 'block';
@@ -232,21 +252,31 @@ async function cekIzinServer() {
   try {
     const r = await fetch(`${IP_SERVER}/`); const d = await r.json();
     if (d.status === "aktif") { dot.classList.remove('offline'); text.textContent = 'Backend Alwi: ✅ Terhubung'; }
-  } catch(e) { dot.classList.remove('offline'); text.textContent = 'Mode Mandiri: Aktif'; }
-}
-function renderPanggung() {
-  const grid = document.getElementById('panggungGrid'); grid.innerHTML = '';
-  PEMENANG.forEach(id => {
-    const m = MEMBER_DB_LOCAL[id], aku = id === memberAktif.id;
-    grid.innerHTML += `
-    <div class="panggung-card ${aku ? 'aktif' : 'nonaktif'}" id="kartu-${id}">
-      <div class="panggung-video-wrap">
-        ${aku ? `<video class="grid-stream-video" id="panggungVideoAktif" autoplay playsinline style="display:none;"></video><div class="panggung-avatar-fallback" id="fallbackAvatar-${id}">${m.avatar}</div>` : `<div class="panggung-avatar-fallback">${m.avatar}</div>`}
-      </div>
-      <div class="panggung-info"><div class="panggung-nama">${m.nama.split(' ')[0]}</div><div class="panggung-status" id="statusPanggung-${id}">⚫ Standby</div></div>
-    </div>`;
-  });
-}
+  } catch(e) { dot.classList.remove('offline'); text.textContent = 'Mode Mandiri: Aktif'; 
+               // Buka Aplikasi
+    loginScreen.style.display = 'none';
+    mainApp.style.display = 'block';
+
+    // JALANKAN RENDER 4 PANGGUNG SEKALIGUS
+    renderPanggung();
+
+    // Ubah Status Koneksi Server Alwi
+    setTimeout(() => {
+      document.getElementById('serverDot').style.backgroundColor = '#27ae60';
+      document.getElementById('serverText').innerText = "Terhubung ke Server Alwi";
+      
+      // Mengubah status koneksi di kartu panggung admin yang login
+      const statusAdmin = document.getElementById(`statusPanggung-${memberAktif.id}`);
+      if(statusAdmin) {
+        statusAdmin.innerText = "🟢 Terkoneksi";
+        statusAdmin.style.color = "#27ae60";
+      }
+    }, 1200);
+
+  } else {
+    loginErr.style.display = 'block';
+  }
+    }
 async function toggleKamera() { if (kameraOn) matikanKamera(); else await nyalakanKamera(); }
 async function nyalakanKamera() {
   const vU = document.getElementById('video'), vG = document.getElementById('panggungVideoAktif'), fb = document.getElementById(`fallbackAvatar-${memberAktif.id}`), st = document.getElementById(`statusPanggung-${memberAktif.id}`), btn = document.getElementById('btnKamera');
